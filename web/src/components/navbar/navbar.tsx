@@ -22,7 +22,7 @@ export default function Navbar() {
         }`}
       >
         <i className="fas fa-hashtag navbar__buttons__icons"></i>
-        <div>Explore</div>
+        <div className="navbar__buttons__text">Explore</div>
       </Link>
 
       <Link
@@ -31,8 +31,8 @@ export default function Navbar() {
           pathname === "/profile" ? "navbar__button__active" : ""
         }`}
       >
-        <i className="fas fa-user"></i>
-        <div>Profile</div>
+        <i className="fas fa-user navbar__buttons__icons"></i>
+        <div className="navbar__buttons__text">Profile</div>
       </Link>
     </div>
   );

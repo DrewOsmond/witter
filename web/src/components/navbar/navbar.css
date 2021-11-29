@@ -1,12 +1,13 @@
 .navbar {
   display: flex;
   flex-direction: column;
-  position: relative;
-  /* align-items: center; */
-  width: 25vw;
+  position: absolute;
+  width: 24%;
   height: 100vh;
-  border-right: 2px solid #2f3336;
+  /* border-right: 1px solid #2f3336; */
   padding-top: 40px;
+  z-index: 4;
+  background-color: black;
 }
 
 .navbar__buttons {

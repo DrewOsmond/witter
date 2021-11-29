@@ -5,7 +5,7 @@ export default function Navbar() {
   const { pathname } = useLocation();
   console.log(pathname);
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <Link
         to="/"
         className={`navbar__buttons ${
@@ -34,6 +34,6 @@ export default function Navbar() {
         <i className="fas fa-user navbar__buttons__icons"></i>
         <div className="navbar__buttons__text">Profile</div>
       </Link>
-    </div>
+    </nav>
   );
 }

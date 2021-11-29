@@ -12,7 +12,8 @@ export default function Navbar() {
           pathname === "/" ? "navbar__button__active" : ""
         }`}
       >
-        Home
+        <i className="fas fa-home navbar__buttons__icons"></i>
+        <div className="navbar__buttons__text">Home</div>
       </Link>
       <Link
         to="/explore"
@@ -20,7 +21,8 @@ export default function Navbar() {
           pathname === "/explore" ? "navbar__button__active" : ""
         }`}
       >
-        Explore
+        <i className="fas fa-hashtag navbar__buttons__icons"></i>
+        <div>Explore</div>
       </Link>
 
       <Link
@@ -29,7 +31,8 @@ export default function Navbar() {
           pathname === "/profile" ? "navbar__button__active" : ""
         }`}
       >
-        Profile
+        <i className="fas fa-user"></i>
+        <div>Profile</div>
       </Link>
     </div>
   );

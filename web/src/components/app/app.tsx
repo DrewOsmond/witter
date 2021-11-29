@@ -1,5 +1,5 @@
 import "./app.css";
-import { Route, Routes, Link } from "react-router-dom";
+import { Routes } from "react-router-dom";
 import Navbar from "../navbar/navbar";
 
 function App() {
@@ -7,7 +7,6 @@ function App() {
     <>
       <Navbar />
       <Routes>{/* <Route path="/" element={<Navbar />} /> */}</Routes>
-      <div>howdy</div>
     </>
   );
 }

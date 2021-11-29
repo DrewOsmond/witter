@@ -29,7 +29,7 @@
   box-shadow: none;
   resize: none;
   background-color: black;
-  padding: 16px 16px;
+  margin-left: 16px;
   color: white;
   border-bottom: 1px solid #2f3336;
 }
@@ -64,22 +64,21 @@
 @media only screen and (min-width: 1050px) {
   .content__page {
     position: relative;
-    left: 27%;
+    left: 18%;
     width: 500px;
   }
 
   .content__page__banner {
-    /* margin-left: 16px; */
     border: 1px solid #2f3336;
     width: 516px;
     padding-left: 16px;
   }
 }
 
-@media only screen and (max-width: 1049px) and (min-width: 649px) {
+@media only screen and (max-width: 1049px) and (min-width: 596px) {
   .content__page {
     position: relative;
-    left: 15%;
+    left: 10%;
     width: 500px;
   }
 
@@ -91,18 +90,29 @@
   }
 }
 
-@media only screen and (max-width: 648px) {
+@media only screen and (max-width: 595px) {
   .content__page {
     position: absolute;
-    left: 40;
-    right: 6%;
-    width: 80%;
+    /* right: 6%; */
+    /* left: 10%; */
+    left: auto;
+    right: auto;
+    width: 100%;
   }
 
   .content__page__banner {
     /* margin-left: 16px; */
     border: 1px solid #2f3336;
-    width: 103.2%;
+    width: 106%;
     padding-left: 16px;
+  }
+
+  .wit {
+    width: 95%;
+    padding: 16px 16px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #2f3336;
+    max-width: 700px;
   }
 }

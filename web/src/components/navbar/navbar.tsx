@@ -3,7 +3,6 @@ import "./navbar.css";
 
 export default function Navbar() {
   const { pathname } = useLocation();
-  console.log(pathname);
   return (
     <nav className="navbar">
       <Link

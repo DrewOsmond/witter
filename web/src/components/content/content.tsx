@@ -5,7 +5,6 @@ export default function Content() {
   const [text, setText] = useState("");
 
   const handleChange = (e: any) => {
-    console.log(e.target.value);
     if (e.target.value.length >= 140) return;
     setText(e.target.value);
   };
@@ -17,10 +16,10 @@ export default function Content() {
   };
 
   return (
-    <main className="content__page">
-      <div className="content__page__banner">
-        <h1 className="">witter</h1>
-      </div>
+    <div className="content__page">
+      <header className="content__page__banner">
+        <h1>Witter</h1>
+      </header>
       {mockUser && (
         <div className="wit">
           <div className="wit__upper">
@@ -54,6 +53,7 @@ export default function Content() {
           </button>
         </div>
       )}
-    </main>
+      <section>{/*add wits here */}</section>
+    </div>
   );
 }

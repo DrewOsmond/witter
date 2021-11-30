@@ -107,7 +107,7 @@
 @media only screen and (max-width: 975px) and (min-width: 621px) {
   .content__page {
     position: relative;
-    left: 13%;
+    left: 10%;
     width: 500px;
   }
 

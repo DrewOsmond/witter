@@ -1,4 +1,4 @@
-@media only screen and (min-width: 1050px) {
+@media only screen and (min-width: 1211px) {
   .navbar {
     /* display: flex;
     flex-direction: column; */
@@ -36,7 +36,7 @@
   }
 }
 
-@media only screen and (max-width: 1049px) and (min-width: 596px) {
+@media only screen and (max-width: 1224px) and (min-width: 621px) {
   .navbar__buttons__text {
     display: none;
   }
@@ -79,7 +79,7 @@
   }
 }
 
-@media only screen and (max-width: 595px) {
+@media only screen and (max-width: 620px) {
   .navbar__buttons__text {
     display: none;
   }
@@ -92,7 +92,7 @@
     right: auto;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
+    width: 90%;
     margin: 16px 16px 8px 16px;
     /* height: 100vh; */
   }

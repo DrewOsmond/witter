@@ -57,6 +57,12 @@ CREATE TABLE "Follows" (
     CONSTRAINT "Follows_pkey" PRIMARY KEY ("followerId","followingId")
 );
 
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
 -- AddForeignKey
 ALTER TABLE "Wit" ADD CONSTRAINT "Wit_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

@@ -19,7 +19,8 @@ router.post(
 
     if (user) {
       if (bycrypt.compareSync(password, user.password)) {
-        await signJWT(req, res);
+        req.body = { user };
+        signJWT(req, res);
         user.password = "";
         res.json(user);
       } else {
@@ -60,6 +61,7 @@ router.post(
       });
 
     if (user && succeeded) {
+      req.body = { user };
       signJWT(req, res);
       user.password = "";
       res.json(user);

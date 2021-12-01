@@ -17,7 +17,8 @@ router.post("/login", (0, express_async_handler_1.default)(async (req, res) => {
     });
     if (user) {
         if (bcrypt_1.default.compareSync(password, user.password)) {
-            await (0, auth_1.signJWT)(req, res);
+            req.body = { user };
+            (0, auth_1.signJWT)(req, res);
             user.password = "";
             res.json(user);
         }
@@ -50,6 +51,7 @@ router.post("/register", (0, express_async_handler_1.default)(async (req, res) =
         return err;
     });
     if (user && succeeded) {
+        req.body = { user };
         (0, auth_1.signJWT)(req, res);
         user.password = "";
         res.json(user);

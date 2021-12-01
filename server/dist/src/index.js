@@ -29,7 +29,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const index_1 = __importDefault(require("./src/routes/index"));
+const index_1 = __importDefault(require("./routes/index"));
 const app = (0, express_1.default)();
 exports.prisma = new client_1.PrismaClient();
 app.use(express_1.default.json());

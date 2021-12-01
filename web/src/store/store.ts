@@ -1,7 +1,10 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import session from "./reducers/session";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    session,
+  },
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -1,6 +1,7 @@
 import "./content.css";
 import { useState } from "react";
 import Wit from "../wit/wit";
+import { useAppSelector } from "../../store/hooks";
 
 const mockWits = [
   {
@@ -26,33 +27,40 @@ const mockWits = [
 
 export default function Content() {
   const [text, setText] = useState("");
+  const { user } = useAppSelector((state) => state.session);
 
   const handleChange = (e: any) => {
     if (e.target.value.length >= 140) return;
     setText(e.target.value);
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
-  const mockUser = {
-    picture:
-      "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
-    username: "test123",
-  };
+  // const mockUser = {
+  //   picture:
+  //     "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
+  //   username: "test123",
+  // };
 
   return (
     <div className="content__page">
       <header className="content__page__banner">
         <h1>Witter</h1>
       </header>
-      {mockUser && (
+      {user && (
         <div className="new__wit">
           <div className="new__wit__upper">
-            {mockUser.picture ? (
+            {user.picture ? (
               <img
                 className="new__wit__picture"
-                src={mockUser.picture}
+                src={user.picture}
                 alt="users profile"
               />
-            ) : null}
+            ) : (
+              <div className="new__wit__default__picture">
+                <i className="fas fa-user"></i>
+              </div>
+            )}
 
             <textarea
               className="new__wit__text"

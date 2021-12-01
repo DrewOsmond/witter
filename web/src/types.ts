@@ -7,6 +7,6 @@ export interface User {
 }
 
 export interface UserSession {
-  user: User | null;
+  user?: User | null;
   status: string | null;
 }

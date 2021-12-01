@@ -17,6 +17,16 @@
   border-radius: 50%;
 }
 
+.new__wit__default__picture {
+  background-color: gray;
+  height: 50px;
+  width: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .new__wit__text {
   resize: none;
   text-decoration: none;

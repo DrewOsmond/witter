@@ -1,11 +1,21 @@
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { useAppSelector } from "../../store/hooks";
 
 const Register = () => {
+  const { user } = useAppSelector((state) => state.session);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -42,22 +52,6 @@ const Register = () => {
     }
 
     if (potentialErrors.length) return setErrors(potentialErrors);
-
-    const fetchUser = await fetch("/api/session/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
-    });
-
-    const response = await fetchUser.json();
-
-    console.log(response);
   };
 
   return (

@@ -22,15 +22,13 @@
   }
 
   .navbar__buttons:hover {
-    background-color: rgb(131, 131, 131);
-    border-radius: 10px;
+    color: #41a5e4;
   }
 
   .navbar__button__active {
-    background-color: rgb(131, 131, 131);
-    border-radius: 10px;
-    color: #dfdfdf;
+    color: #1ba0f0;
   }
+
   .navbar__buttons__icons {
     padding-right: 12px;
   }
@@ -55,25 +53,20 @@
   }
 
   .navbar {
-    /* display: flex;
-    flex-direction: column; */
     position: absolute;
     width: 65%;
     height: 100vh;
-    /* border-right: 1px solid #2f3336; */
     padding-top: 40px;
   }
 
   .navbar__buttons:hover {
-    background-color: rgb(131, 131, 131);
-    border-radius: 10px;
+    color: #41a5e4;
   }
 
   .navbar__button__active {
-    background-color: rgb(131, 131, 131);
-    border-radius: 10px;
-    color: #dfdfdf;
+    color: #1ba0f0;
   }
+
   .navbar__buttons__icons {
     padding-right: 12px;
   }
@@ -111,14 +104,11 @@
   }
 
   .navbar__buttons:hover {
-    background-color: rgb(131, 131, 131);
-    border-radius: 10px;
+    color: #41a5e4;
   }
 
   .navbar__button__active {
-    background-color: rgb(131, 131, 131);
-    border-radius: 10px;
-    color: #dfdfdf;
+    color: #1ba0f0;
   }
 
   .navbar__buttons__icons {

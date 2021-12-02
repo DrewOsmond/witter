@@ -15,6 +15,8 @@ router.post("/register", (0, express_async_handler_1.default)(async (req, res) =
 }));
 router.post("/restore", auth_1.authenticateUser, (0, express_async_handler_1.default)((req, res) => {
     const { user } = req.body;
+    if (!user)
+        return;
     res.json({ user });
 }));
 router.delete("/logout", (_req, res) => {

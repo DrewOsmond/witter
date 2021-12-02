@@ -1,6 +1,9 @@
 import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { registerUser } from "../../store/reducers/session";
+
+import "./register.css";
 
 const Register = () => {
   const { user } = useAppSelector((state) => state.session);
@@ -9,8 +12,12 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
-  const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  // if (user) {
+  //   navigate("/");
+  // }
   useEffect(() => {
     if (user) {
       navigate("/");
@@ -52,53 +59,76 @@ const Register = () => {
     }
 
     if (potentialErrors.length) return setErrors(potentialErrors);
+
+    //@ts-ignore
+    dispatch(
+      //@ts-ignore
+      registerUser({
+        username,
+        email,
+        password,
+      })
+    );
   };
 
   return (
-    <div>
+    <div className="register__login__page">
       {errors.length > 0 && errors.map((err, i) => <li key={i}>{err}</li>)}
-      <form onSubmit={handleRegister}>
-        <label htmlFor="username">username:</label>
+      <form onSubmit={handleRegister} className="session__form">
+        <label className="form__label" htmlFor="username">
+          Username:
+        </label>
         <input
+          className="form__input"
           type="text"
           name="username"
-          placeholder="username"
+          placeholder="Username"
           required
           value={username}
           onChange={handleChange}
+          tabIndex={1}
         />
 
-        <label htmlFor="email">email:</label>
+        <label className="form__label" htmlFor="email">
+          Email:
+        </label>
         <input
+          className="form__input"
           type="text"
           name="email"
-          placeholder="email"
+          placeholder="Email"
           required
           value={email}
           onChange={handleChange}
         />
 
-        <label htmlFor="password">password:</label>
+        <label className="form__label" htmlFor="password">
+          Password:
+        </label>
         <input
+          className="form__input"
           type="password"
           name="password"
-          placeholder="password"
+          placeholder="Password"
           required
           value={password}
           onChange={handleChange}
         />
 
-        <label htmlFor="confirmPassword">confirm password:</label>
+        <label className="form__label" htmlFor="confirmPassword">
+          Confirm Password:
+        </label>
         <input
+          className="form__input"
           type="password"
           name="confirmPassword"
-          placeholder="confirm password"
+          placeholder="Confirm Password"
           required
           value={confirmPassword}
           onChange={handleChange}
         />
 
-        <button type="submit">register account</button>
+        <button type="submit">Create new account</button>
       </form>
     </div>
   );

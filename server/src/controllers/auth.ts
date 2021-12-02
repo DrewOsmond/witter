@@ -37,6 +37,10 @@ export const authenticateUser = async (
 ) => {
   const { token } = req.cookies;
 
+  if (!token) {
+    return res.status(200).json(null);
+  }
+
   jwt.verify(token, secret, undefined, async (err, payload: any) => {
     if (err) {
       return res.status(403).json({
@@ -63,6 +67,7 @@ export const authenticateUser = async (
     res.status(404).json({ error: "account not found" });
     return;
   });
+  return;
 };
 
 export const registerUser = async (req: Request, res: Response) => {

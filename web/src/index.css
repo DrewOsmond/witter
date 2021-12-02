@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #000000;
-  color: #d7d7d7;
+  background-color: #15212a;
+  color: #fafafa;
   overflow-x: hidden;
 }
 
@@ -37,5 +37,5 @@ input {
   outline: none;
   box-shadow: none;
   border: none;
-  color: #d7d7d7;
+  color: #fafafa;
 }

@@ -23,6 +23,7 @@ router.post(
   authenticateUser,
   asyncHandler((req, res) => {
     const { user } = req.body;
+    if (!user) return;
     res.json({ user });
   })
 );

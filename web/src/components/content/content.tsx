@@ -1,7 +1,8 @@
 import "./content.css";
 import { useState } from "react";
 import Wit from "../wit/wit";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { logoutUser } from "../../store/reducers/session";
 
 const mockWits = [
   {
@@ -28,6 +29,7 @@ const mockWits = [
 export default function Content() {
   const [text, setText] = useState("");
   const { user } = useAppSelector((state) => state.session);
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: any) => {
     if (e.target.value.length >= 140) return;
@@ -44,6 +46,13 @@ export default function Content() {
 
   return (
     <div className="content__page">
+      <button
+        onClick={() => {
+          dispatch(logoutUser());
+        }}
+      >
+        logout
+      </button>
       <header className="content__page__banner">
         <h1>Witter</h1>
       </header>

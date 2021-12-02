@@ -1,0 +1,38 @@
+.session__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__label {
+  font-weight: bold;
+  font-size: 1.4em;
+  padding-left: 8px;
+}
+
+.form__input {
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  padding-left: 16px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  color: black;
+  font-weight: bold;
+  font-style: 1.4em;
+}
+
+.form__input:focus {
+  border: 2px solid #1ba0f0;
+  width: 246px;
+  height: 36px;
+  padding-left: 14px;
+}
+
+.register__login__page {
+  width: 100vw;
+  height: 100vh;
+  background-color: #15212a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

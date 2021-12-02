@@ -1,5 +1,5 @@
 import "./app.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { restoreUser } from "../../store/reducers/session";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
@@ -13,17 +13,22 @@ import Profile from "../profile/profile";
 function App() {
   const { user } = useAppSelector((state) => state.session);
   const dispatch = useAppDispatch();
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(restoreUser());
+    dispatch(restoreUser()).then(() => setLoaded(true));
   }, [dispatch]);
+
+  if (!loaded) {
+    return null;
+    // return <div>loading..</div>;
+  }
 
   return (
     <>
       {user && (
         <Routes>
           <Route path="/register" element={<Register />} />
-          <Route path="/:user" element={<Profile />} />
           <Route
             path="/"
             element={
@@ -34,6 +39,7 @@ function App() {
               </>
             }
           />
+          <Route path="/:user" element={<Profile />} />
         </Routes>
       )}
 

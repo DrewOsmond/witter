@@ -28,6 +28,9 @@ const signJWT = (req, res) => {
 exports.signJWT = signJWT;
 const authenticateUser = async (req, res, next) => {
     const { token } = req.cookies;
+    if (!token) {
+        return res.status(200).json(null);
+    }
     jsonwebtoken_1.default.verify(token, secret, undefined, async (err, payload) => {
         if (err) {
             return res.status(403).json({
@@ -51,10 +54,12 @@ const authenticateUser = async (req, res, next) => {
         res.status(404).json({ error: "account not found" });
         return;
     });
+    return;
 };
 exports.authenticateUser = authenticateUser;
 const registerUser = async (req, res) => {
     const { username, email, password } = req.body;
+    console.log(password);
     const hashedPassword = await bcrypt_1.default.hash(password, 12);
     const isEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email.toLowerCase().match(isEmail)) {

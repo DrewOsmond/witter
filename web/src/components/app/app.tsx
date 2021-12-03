@@ -9,6 +9,7 @@ import Navbar from "../navbar/navbar";
 import Sidebar from "../sidebar/sidebar";
 import Register from "../register/register";
 import Profile from "../profile/profile";
+import Login from "../login/login";
 
 function App() {
   const { user } = useAppSelector((state) => state.session);
@@ -26,9 +27,10 @@ function App() {
 
   return (
     <>
-      {user && (
-        <Routes>
-          <Route path="/register" element={<Register />} />
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" />
+        {user && (
           <Route
             path="/"
             element={
@@ -39,11 +41,11 @@ function App() {
               </>
             }
           />
-          <Route path="/:user" element={<Profile />} />
-        </Routes>
-      )}
+        )}
+        <Route path="/:user" element={<Profile />} />
+      </Routes>
 
-      {!user && <Register />}
+      {!user && <Login />}
     </>
   );
 }

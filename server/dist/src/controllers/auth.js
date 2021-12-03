@@ -59,7 +59,6 @@ const authenticateUser = async (req, res, next) => {
 exports.authenticateUser = authenticateUser;
 const registerUser = async (req, res) => {
     const { username, email, password } = req.body;
-    console.log(password);
     const hashedPassword = await bcrypt_1.default.hash(password, 12);
     const isEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email.toLowerCase().match(isEmail)) {
@@ -90,6 +89,7 @@ exports.registerUser = registerUser;
 const loginUser = async (req, res) => {
     const { username, email, password } = req.body;
     const credentials = username ? { username } : { email };
+    console.log(credentials, username, email);
     const user = await index_1.prisma.user.findUnique({
         where: credentials,
     });

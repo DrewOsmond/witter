@@ -106,22 +106,21 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: "must include valid credentials" });
+  }
   const credentials = username ? { username } : { email };
-
   const user: User | null = await prisma.user.findUnique({
     where: credentials,
   });
 
-  if (user) {
-    if (bycrypt.compareSync(password, user.password)) {
-      req.body = { user };
-      signJWT(req, res);
-      user.password = "";
-      res.json({ user });
-    } else {
-      res
-        .status(400)
-        .json({ error: "username, email, or password are incorrect" });
-    }
+  if (user && bycrypt.compareSync(password, user.password)) {
+    req.body = { user };
+    signJWT(req, res);
+    user.password = "";
+    return res.json({ user });
   }
+  return res
+    .status(400)
+    .json({ error: "username, email, or password are incorrect" });
 };

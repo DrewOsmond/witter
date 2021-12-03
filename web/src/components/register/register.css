@@ -29,10 +29,12 @@
 }
 
 .register__login__page {
+  position: relative;
   width: 100vw;
   height: 100vh;
   background-color: #15212a;
   display: flex;
   justify-content: center;
   align-items: center;
+  bottom: 125px;
 }

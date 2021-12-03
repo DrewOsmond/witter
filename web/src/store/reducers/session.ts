@@ -44,6 +44,16 @@ const sessionSlice = createSlice({
       state.user = null;
     });
 
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.status = "success";
+      state.user = action.payload;
+    });
+
+    builder.addCase(loginUser.rejected, (state, action) => {
+      state.status = "username, email, or password are incorrect";
+      state.user = null;
+    });
+
     builder.addCase(restoreUser.fulfilled, (state, action) => {
       state.status = "success";
       state.user = action.payload;

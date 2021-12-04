@@ -10,3 +10,22 @@
 .wit__username {
   margin-left: 32px;
 }
+
+.fas.fa-heart {
+  color: rgb(221, 74, 74);
+}
+
+.wit__replies__length {
+  font-size: 0.8 em;
+  margin-left: 8px;
+}
+
+.comments__like {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 24px;
+}
+
+.wit__comments {
+  display: flex;
+}

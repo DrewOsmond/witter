@@ -28,7 +28,7 @@ const fetchRecentWits = async (req, res) => {
     const recentWits = await index_1.prisma.wit.findMany({
         skip,
         take: 50,
-        include: { user: true },
+        include: { user: true, replies: true },
         orderBy: {
             createdAt: "desc",
         },

@@ -21,4 +21,5 @@ export interface Wits {
   image: string | null;
   id: number;
   user: User;
+  replies: [];
 }

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./wit.css";
@@ -10,7 +10,9 @@ interface Props {
 }
 
 const Wit: FC<Props> = ({ wit }) => {
-  const { user, content, image } = wit;
+  const { user, content, image, replies } = wit;
+  const [displayHeart, setDisplayHeart] = useState("far");
+  const [displayComments, setDisplayComments] = useState("far");
 
   return (
     <div className="wit">
@@ -20,9 +22,20 @@ const Wit: FC<Props> = ({ wit }) => {
       <div>{content}</div>
       {image ? <img src={image} alt="post" /> : null}
 
-      <div>
-        <i className="fas fa-comments comment__wit"></i>
-        <i className="far fa-heart like__wit"></i>
+      <div className="comments__like">
+        <div className="wit__comments">
+          <i
+            onMouseOverCapture={() => setDisplayComments("fas")}
+            onMouseOut={() => setDisplayComments("far")}
+            className={`${displayComments} fa-comments`}
+          ></i>
+          <div className="wit__replies__length">{replies.length}</div>
+        </div>
+        <i
+          onMouseOverCapture={() => setDisplayHeart("fas")}
+          onMouseOut={() => setDisplayHeart("far")}
+          className={`${displayHeart} fa-heart`}
+        ></i>
       </div>
     </div>
   );

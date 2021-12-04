@@ -60,7 +60,7 @@ export const authenticateUser = async (
 
     if (user && success) {
       user.password = "";
-      req.body = { user };
+      req.body.user = { user };
       next();
       return;
     }
@@ -100,7 +100,7 @@ export const registerUser = async (req: Request, res: Response) => {
     req.body = { user };
     signJWT(req, res);
     user.password = "";
-    res.json({ user });
+    res.json(user);
   }
 };
 
@@ -118,7 +118,7 @@ export const loginUser = async (req: Request, res: Response) => {
     req.body = { user };
     signJWT(req, res);
     user.password = "";
-    return res.json({ user });
+    return res.json(user);
   }
   return res
     .status(400)

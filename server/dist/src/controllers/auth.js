@@ -47,7 +47,7 @@ const authenticateUser = async (req, res, next) => {
         });
         if (user && success) {
             user.password = "";
-            req.body = { user };
+            req.body.user = { user };
             next();
             return;
         }
@@ -82,30 +82,28 @@ const registerUser = async (req, res) => {
         req.body = { user };
         (0, exports.signJWT)(req, res);
         user.password = "";
-        res.json({ user });
+        res.json(user);
     }
 };
 exports.registerUser = registerUser;
 const loginUser = async (req, res) => {
     const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+        return res.status(400).json({ error: "must include valid credentials" });
+    }
     const credentials = username ? { username } : { email };
-    console.log(credentials, username, email);
     const user = await index_1.prisma.user.findUnique({
         where: credentials,
     });
-    if (user) {
-        if (bcrypt_1.default.compareSync(password, user.password)) {
-            req.body = { user };
-            (0, exports.signJWT)(req, res);
-            user.password = "";
-            res.json({ user });
-        }
-        else {
-            res
-                .status(400)
-                .json({ error: "username, email, or password are incorrect" });
-        }
+    if (user && bcrypt_1.default.compareSync(password, user.password)) {
+        req.body = { user };
+        (0, exports.signJWT)(req, res);
+        user.password = "";
+        return res.json(user);
     }
+    return res
+        .status(400)
+        .json({ error: "username, email, or password are incorrect" });
 };
 exports.loginUser = loginUser;
 //# sourceMappingURL=auth.js.map

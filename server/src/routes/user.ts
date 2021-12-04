@@ -22,9 +22,9 @@ router.post(
   "/restore",
   authenticateUser,
   asyncHandler((req, res) => {
-    const { user } = req.body;
+    const { user } = req.body.user;
     if (!user) return;
-    res.json({ user });
+    res.json(user);
   })
 );
 

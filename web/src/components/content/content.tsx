@@ -1,8 +1,12 @@
 import "./content.css";
-import { useState } from "react";
-import Wit from "../wit/wit";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { logoutUser } from "../../store/reducers/session";
+import NewWit from "../newWit/newWit";
+import Wit from "../wit/wit";
+import { fetchFollowerWits } from "../../store/reducers/followerWits";
+import { useEffect } from "react";
+
+import { Wits } from "../../types";
 
 const mockWits = [
   {
@@ -26,23 +30,13 @@ const mockWits = [
   },
 ];
 
-export default function Content() {
-  const [text, setText] = useState("");
-  const { user } = useAppSelector((state) => state.session);
+const Content = () => {
   const dispatch = useAppDispatch();
-
-  const handleChange = (e: any) => {
-    if (e.target.value.length >= 140) return;
-    setText(e.target.value);
-    e.target.style.height = "inherit";
-    e.target.style.height = `${e.target.scrollHeight}px`;
-  };
-
-  // const mockUser = {
-  //   picture:
-  //     "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
-  //   username: "test123",
-  // };
+  const followerContent = useAppSelector((state) => state.followerContent);
+  const wits: Wits[] = followerContent.wits;
+  useEffect(() => {
+    dispatch(fetchFollowerWits());
+  }, []);
 
   return (
     <div className="content__page">
@@ -56,48 +50,12 @@ export default function Content() {
       <header className="content__page__banner">
         <h1>Witter</h1>
       </header>
-      {user && (
-        <div className="new__wit">
-          <div className="new__wit__upper">
-            {user.picture ? (
-              <img
-                className="new__wit__picture"
-                src={user.picture}
-                alt="users profile"
-              />
-            ) : (
-              <div className="new__wit__default__picture">
-                <i className="fas fa-user"></i>
-              </div>
-            )}
-
-            <textarea
-              className="new__wit__text"
-              cols={50}
-              rows={4}
-              placeholder="what's on your mind?"
-              value={text}
-              onChange={handleChange}
-            />
-          </div>
-          <button
-            className={`new__wit__button
-                ${
-                  text.length > 0
-                    ? "new__wit__button__available"
-                    : "new__wit__button__not__available"
-                }
-              `}
-          >
-            Wit
-          </button>
-        </div>
-      )}
+      <NewWit />
       <section>
-        {mockWits.map((wit) => (
-          <Wit wit={wit} key={wit.id} />
-        ))}
+        {wits.length > 0 && wits?.map((wit) => <Wit wit={wit} key={wit.id} />)}
       </section>
     </div>
   );
-}
+};
+
+export default Content;

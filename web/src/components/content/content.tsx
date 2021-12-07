@@ -8,32 +8,11 @@ import { useEffect } from "react";
 
 import { Wits } from "../../types";
 
-const mockWits = [
-  {
-    id: 1,
-    user: {
-      username: "test123",
-      picture: null,
-    },
-    content: "weeeee poggers",
-    image: null,
-  },
-  {
-    id: 2,
-    user: {
-      username: "bubblebop",
-      picture: null,
-    },
-    content:
-      "I freaking love arcane, the show is really good and it just works so well. Really well made, super cool characters. Can't wait for ezreal's character to show up!!!!",
-    image: null,
-  },
-];
-
 const Content = () => {
   const dispatch = useAppDispatch();
   const followerContent = useAppSelector((state) => state.followerContent);
   const wits: Wits[] = followerContent.wits;
+
   useEffect(() => {
     dispatch(fetchFollowerWits());
   }, []);

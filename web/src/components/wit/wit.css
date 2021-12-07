@@ -29,3 +29,11 @@
 .wit__comments {
   display: flex;
 }
+
+.fa-heart:hover {
+  cursor: pointer;
+}
+
+.fa-comments:hover {
+  cursor: pointer;
+}

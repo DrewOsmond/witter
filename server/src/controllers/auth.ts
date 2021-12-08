@@ -36,12 +36,14 @@ export const authenticateUser = async (
   next: NextFunction
 ) => {
   const { token } = req.cookies;
+  const mobileToken = req.body.token;
 
-  if (!token) {
+  if (!token && !mobileToken) {
     return res.status(200).json(null);
   }
 
-  jwt.verify(token, secret, undefined, async (err, payload: any) => {
+  const selectedToken = token ? token : mobileToken;
+  jwt.verify(selectedToken, secret, undefined, async (err, payload: any) => {
     if (err) {
       return res.status(403).json({
         error: "not authorized",
@@ -86,8 +88,8 @@ export const registerUser = async (req: Request, res: Response) => {
   const user: User = await prisma.user
     .create({
       data: {
-        username,
-        email,
+        username: username.toLowerCase(),
+        email: email.toLowerCase(),
         password: hashedPassword,
       },
     })
@@ -106,14 +108,22 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
-  if (!username || !email || !password) {
+  if ((!username && !email) || !password) {
     return res.status(400).json({ error: "must include valid credentials" });
   }
-  const credentials = username ? { username } : { email };
+  const credentials = username
+    ? {
+        username: username.toLowerCase().trim(),
+      }
+    : { email: email.toLowerCase() };
   const user: User | null = await prisma.user.findUnique({
+    //@ts-ignore
     where: credentials,
   });
+  console.log(credentials);
+  console.log(username, password);
 
+  console.log(user);
   if (user && bycrypt.compareSync(password, user.password)) {
     req.body = { user };
     signJWT(req, res);

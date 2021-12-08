@@ -28,10 +28,12 @@ const signJWT = (req, res) => {
 exports.signJWT = signJWT;
 const authenticateUser = async (req, res, next) => {
     const { token } = req.cookies;
-    if (!token) {
+    const mobileToken = req.body.token;
+    if (!token && !mobileToken) {
         return res.status(200).json(null);
     }
-    jsonwebtoken_1.default.verify(token, secret, undefined, async (err, payload) => {
+    const selectedToken = token ? token : mobileToken;
+    jsonwebtoken_1.default.verify(selectedToken, secret, undefined, async (err, payload) => {
         if (err) {
             return res.status(403).json({
                 error: "not authorized",
@@ -69,8 +71,8 @@ const registerUser = async (req, res) => {
     const user = await index_1.prisma.user
         .create({
         data: {
-            username,
-            email,
+            username: username.toLowerCase(),
+            email: email.toLowerCase(),
             password: hashedPassword,
         },
     })
@@ -88,13 +90,20 @@ const registerUser = async (req, res) => {
 exports.registerUser = registerUser;
 const loginUser = async (req, res) => {
     const { username, email, password } = req.body;
-    if (!username || !email || !password) {
+    if ((!username && !email) || !password) {
         return res.status(400).json({ error: "must include valid credentials" });
     }
-    const credentials = username ? { username } : { email };
+    const credentials = username
+        ? {
+            username: username.toLowerCase().trim(),
+        }
+        : { email: email.toLowerCase() };
     const user = await index_1.prisma.user.findUnique({
         where: credentials,
     });
+    console.log(credentials);
+    console.log(username, password);
+    console.log(user);
     if (user && bcrypt_1.default.compareSync(password, user.password)) {
         req.body = { user };
         (0, exports.signJWT)(req, res);

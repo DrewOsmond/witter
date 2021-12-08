@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, ScrollView, TouchableHighlight } from "react-native";
 import { logoutUser } from "../store/reducers/session";
 import { fetchFollowerWits } from "../store/reducers/followerWits";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,32 +18,34 @@ const Content = () => {
     dispatch(logoutUser());
   };
   return (
-    // <View style={styles.container}>
     <ScrollView>
       <View style={styles.container}>
-        <Button
+        {/* <Button
           style={{ marginTop: 32 }}
           onPress={handleLogout}
           title="logout"
-        />
+        /> */}
         {wits.length > 0 &&
-          wits.map((wit) => <Wit key={`wit-${wit.id}`} wit={wit} />)}
+          wits.map((wit) => (
+            <TouchableHighlight
+              onPress={() => alert("pressed")}
+              key={`wit-${wit.id}`}
+            >
+              <Wit wit={wit} />
+            </TouchableHighlight>
+          ))}
       </View>
     </ScrollView>
     // </View>
   );
 };
 
-let ScreenHeight = Dimensions.get("window").height;
-// console.log(screenHeight);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     color: "white",
-    // backgroundColor: "black",
-    // padding: 32,
+    marginTop: 32,
     width: "100%",
-    height: Dimensions.get("window").height,
   },
 });
 

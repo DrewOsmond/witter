@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableHighlight,
-} from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 const Wit = ({ wit }) => {
   const { user, content, image, replies } = wit;
@@ -17,9 +11,7 @@ const Wit = ({ wit }) => {
         ) : (
           <Image
             style={styles.witUserImage}
-            source={{
-              uri: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
-            }}
+            source={require("../assets/cat.png")}
           />
         )}
         <Text style={styles.witUser}>{user.username}</Text>
@@ -36,6 +28,7 @@ const styles = StyleSheet.create({
   witContainer: {
     borderBottomColor: "gray",
     borderBottomWidth: 1,
+    width: "100%",
   },
   witUserHeader: {
     flex: 1,
@@ -54,7 +47,7 @@ const styles = StyleSheet.create({
     color: "#fafafa",
     marginLeft: 48,
     marginRight: 16,
-    marginBottom: 16,
+    marginBottom: 24,
   },
   witUserImage: {
     marginTop: 10,

@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../store/reducers/session";
 
-const login = () => {
+const login = ({ navigation }) => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -14,8 +14,9 @@ const login = () => {
     e.preventDefault();
     const loginInfo = { password };
 
-    if (!password.length || !credential.length) {
+    if (password.length < 0 || credential.length < 0) {
       setErrors(["username, email, or password must not be blank."]);
+      return;
     }
 
     if (
@@ -34,24 +35,27 @@ const login = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>Witter</Text>
+      <Text onPress={() => navigation.navigate("Witter")} style={styles.logo}>
+        Witter
+      </Text>
       <View style={{ marginTop: 112 }}></View>
       <TextInput
         style={styles.input}
-        placeholderTextColor="#fafafa"
         placeholder="username or email"
+        placeholderTextColor="#fafafa"
+        autoCorrect={false}
         onChangeText={setCredential}
         value={credential}
       />
 
       <TextInput
         style={styles.input}
-        placeholderTextColor="#fafafa"
         placeholder="password"
+        placeholderTextColor="#fafafa"
         secureTextEntry={true}
+        autoCorrect={false}
         onChangeText={setPassword}
         value={password}
-        underlineColorIos="green"
       />
       <View style={{ marginTop: 72 }}></View>
       <View style={styles.button}>
@@ -63,7 +67,11 @@ const login = () => {
         />
       </View>
       <View style={styles.signup}>
-        <Button title="already a user? signup" />
+        <Button
+          onPress={() => navigation.navigate("Register")}
+          title="don't have an account? signup"
+          color="#1d9bf0"
+        />
       </View>
     </View>
   );
@@ -74,7 +82,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     alignItems: "center",
-    marginTop: 82,
+    backgroundColor: "#15212a",
   },
   logo: {
     color: "#1d9bf0",
@@ -97,17 +105,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: "80%",
     height: "7%",
-    padding: 24,
+    paddingLeft: 24,
     borderTopRightRadius: 5,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
   button: {
-    marginTop: 48,
+    marginTop: 62,
   },
   signup: {
-    marginBottom: "10%",
+    // marginBottom: "10%",
   },
 });
 

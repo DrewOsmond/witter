@@ -4,12 +4,9 @@ import axios from "axios";
 export const fetchFollowerWits = createAsyncThunk(
   "followerContent",
   async (skip) => {
-    const { data } = await axios.get(
-      "http://192.168.1.109:4000/api/wit/explore",
-      {
-        skip,
-      }
-    );
+    const { data } = await axios.get("http://10.0.0.147:4000/api/wit/explore", {
+      skip,
+    });
     return data;
   }
 );

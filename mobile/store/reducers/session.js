@@ -10,7 +10,7 @@ export const registerUser = createAsyncThunk(
   "session/register",
   async (credentials) => {
     const response = await axios.post(
-      "http://192.168.1.109:4000/api/session/register",
+      "http://10.0.0.147:4000/api/session/register",
       credentials
     );
     const { data } = response;
@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
   "session/login",
   async (credentials) => {
     const response = await axios.post(
-      "http://192.168.1.109:4000/api/session/login",
+      "http://10.0.0.147/api/session/login",
       credentials
     );
     const { data } = response;
@@ -44,7 +44,7 @@ export const loginUser = createAsyncThunk(
 export const restoreUser = createAsyncThunk("session/restore", async () => {
   const token = await SecureStore.getItemAsync("token");
   const { data } = await axios.post(
-    "http://192.168.1.109:4000/api/session/restore",
+    "http://10.0.0.147:4000/api/session/restore",
     {
       token,
     }
@@ -53,14 +53,14 @@ export const restoreUser = createAsyncThunk("session/restore", async () => {
 });
 
 export const logoutUser = createAsyncThunk("session/logout", async () => {
-  await axios.delete("http://192.168.1.109:4000/api/session/logout");
+  await axios.delete("http://10.0.0.147:4000/api/session/logout");
   await SecureStore.deleteItemAsync("token");
   return null;
 });
 
 const sessionSlice = createSlice({
   name: "session",
-  initialState: { user: null, status: null },
+  initialState: { user: "loading", status: null },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {

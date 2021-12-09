@@ -101,9 +101,6 @@ const loginUser = async (req, res) => {
     const user = await index_1.prisma.user.findUnique({
         where: credentials,
     });
-    console.log(credentials);
-    console.log(username, password);
-    console.log(user);
     if (user && bcrypt_1.default.compareSync(password, user.password)) {
         req.body = { user };
         (0, exports.signJWT)(req, res);

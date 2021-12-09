@@ -33,6 +33,8 @@ export const fetchRecentWits = async (req: Request, res: Response) => {
       user: {
         select: {
           username: true,
+          picture: true,
+          id: true,
         },
       },
       replies: {

@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Button,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../store/reducers/session";
 
@@ -38,62 +47,78 @@ const Register = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text onPress={() => navigation.navigate("Witter")} style={styles.logo}>
-        Witter
-      </Text>
-      <View style={{ marginTop: 56 }}></View>
-      <TextInput
-        style={styles.input}
-        placeholder="username"
-        placeholderTextColor="#fafafa"
-        autoCorrect={false}
-        onChangeText={setUsername}
-        value={username}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="email"
-        placeholderTextColor="#fafafa"
-        autoCorrect={false}
-        onChangeText={setEmail}
-        value={email}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="password"
-        placeholderTextColor="#fafafa"
-        onChangeText={setPassword}
-        value={password}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="confirm password"
-        placeholderTextColor="#fafafa"
-        onChangeText={setConfirmPassword}
-        value={confirmPassword}
-      />
-      <View style={{ marginTop: 74 }}></View>
-      <Button
-        onPress={handleSignup}
-        title="Signup"
-        color="#1d9bf0"
-        accessibilityLabel="Register button"
-      />
-      <Button
-        onPress={() => navigation.navigate("Login")}
-        title="already have an account? login"
-        color="#1d9bf0"
-        accessibilityLabel="Register button"
-      />
+      <ScrollView>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          {/* <View style={styles.container}> */}
+          <Text
+            onPress={() => navigation.navigate("Witter")}
+            style={styles.logo}
+          >
+            Witter
+          </Text>
+          {/* <View style={{ marginTop: 56 }}></View> */}
+          <TextInput
+            style={styles.input}
+            placeholder="username"
+            placeholderTextColor="#fafafa"
+            autoCorrect={false}
+            onChangeText={setUsername}
+            value={username}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="email"
+            placeholderTextColor="#fafafa"
+            autoCorrect={false}
+            onChangeText={setEmail}
+            value={email}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="password"
+            placeholderTextColor="#fafafa"
+            secureTextEntry={true}
+            onChangeText={setPassword}
+            value={password}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="confirm password"
+            secureTextEntry={true}
+            placeholderTextColor="#fafafa"
+            onChangeText={setConfirmPassword}
+            value={confirmPassword}
+          />
+          {/* <View style={{ alignSelf: "flex-start" }}> */}
+          <Button
+            onPress={handleSignup}
+            title="Signup"
+            color="#1d9bf0"
+            accessibilityLabel="Register button"
+          />
+          <Button
+            onPress={() => navigation.navigate("Login")}
+            title="already have an account? login"
+            color="#1d9bf0"
+            accessibilityLabel="Register button"
+          />
+          {/* </View> */}
+          {/* </View> */}
+        </KeyboardAvoidingView>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     width: "100%",
     height: "100%",
     alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: "#15212a",
   },
   logo: {
@@ -103,11 +128,11 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   form: {
-    display: "flex",
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     color: "#fafafa",
-    width: "80%",
+    width: "100%",
     marginTop: 64,
   },
   input: {
@@ -115,18 +140,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderColor: "gray",
     borderWidth: 1,
-    width: "80%",
-    height: "7%",
-    paddingLeft: 24,
-    borderTopRightRadius: 5,
-    borderTopLeftRadius: 5,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
+    width: "99%",
+    height: "10%",
+    paddingLeft: 16,
+    borderRadius: 8,
   },
-  button: {
-    marginTop: 62,
-  },
-  signup: {},
 });
 
 export default Register;

@@ -17,7 +17,7 @@ const Wit = ({ wit }) => {
         <Text style={styles.witUser}>{user.username}</Text>
       </View>
 
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={{ flex: 1 }}>
         <Text style={styles.witText}>{content}</Text>
       </View>
     </View>
@@ -39,15 +39,20 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   witUser: {
-    color: "#fafafa",
+    color: "white",
     padding: 16,
-    marginTop: 6,
+    marginTop: -3,
+    marginLeft: -8,
+    fontWeight: "bold",
+    fontSize: 18,
   },
   witText: {
     color: "#fafafa",
-    marginLeft: 48,
+    marginLeft: 66,
     marginRight: 16,
-    marginBottom: 24,
+    marginBottom: 16,
+    marginTop: -26,
+    fontSize: 14,
   },
   witUserImage: {
     marginTop: 10,

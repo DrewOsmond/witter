@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Button,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../store/reducers/session";
 
@@ -34,54 +42,72 @@ const login = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text onPress={() => navigation.navigate("Witter")} style={styles.logo}>
-        Witter
-      </Text>
-      <View style={{ marginTop: 112 }}></View>
-      <TextInput
-        style={styles.input}
-        placeholder="username or email"
-        placeholderTextColor="#fafafa"
-        autoCorrect={false}
-        onChangeText={setCredential}
-        value={credential}
-      />
+    <View
+      style={styles.container}
+      // behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      {/* <KeyboardAvoidingView> */}
+      <View style={styles.container}>
+        <Text onPress={() => navigation.navigate("Witter")} style={styles.logo}>
+          Witter
+        </Text>
+        {/* <View style={{ marginTop: 30 }}></View> */}
+        <View
+          style={{
+            flex: 1,
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <TextInput
+            style={styles.input}
+            placeholder="username or email"
+            placeholderTextColor="#fafafa"
+            autoCorrect={false}
+            onChangeText={setCredential}
+            value={credential}
+          />
 
-      <TextInput
-        style={styles.input}
-        placeholder="password"
-        placeholderTextColor="#fafafa"
-        secureTextEntry={true}
-        autoCorrect={false}
-        onChangeText={setPassword}
-        value={password}
-      />
-      <View style={{ marginTop: 72 }}></View>
-      <View style={styles.button}>
-        <Button
-          onPress={handeLogin}
-          title="Login"
-          color="#1d9bf0"
-          accessibilityLabel="Login button"
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="password"
+            placeholderTextColor="#fafafa"
+            secureTextEntry={true}
+            autoCorrect={false}
+            onChangeText={setPassword}
+            value={password}
+          />
+        </View>
+        <View style={{ marginTop: 30 }}></View>
+        <View style={styles.button}>
+          <Button
+            onPress={handeLogin}
+            title="Login"
+            color="#1d9bf0"
+            accessibilityLabel="Login button"
+          />
+        </View>
+        <View style={styles.signup}>
+          <Button
+            onPress={() => navigation.navigate("Register")}
+            title="don't have an account? signup"
+            color="#1d9bf0"
+          />
+        </View>
       </View>
-      <View style={styles.signup}>
-        <Button
-          onPress={() => navigation.navigate("Register")}
-          title="don't have an account? signup"
-          color="#1d9bf0"
-        />
-      </View>
+      {/* </KeyboardAvoidingView> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     width: "100%",
     height: "100%",
     alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: "#15212a",
   },
   logo: {
@@ -100,22 +126,22 @@ const styles = StyleSheet.create({
   },
   input: {
     color: "#fafafa",
-    marginBottom: 16,
+    marginBottom: 15,
     borderColor: "gray",
     borderWidth: 1,
+    // width: "80%",
+    // height: "7%",
+    height: 50,
     width: "80%",
-    height: "7%",
     paddingLeft: 24,
     borderTopRightRadius: 5,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
-  button: {
-    marginTop: 62,
-  },
+  button: {},
   signup: {
-    // marginBottom: "10%",
+    marginBottom: 24,
   },
 });
 

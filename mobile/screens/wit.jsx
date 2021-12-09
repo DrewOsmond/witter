@@ -8,28 +8,49 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
   Button,
 } from "react-native";
+import axios from "axios";
+
+import Reply from "../components/reply";
 
 const Wit = ({ navigation, route }) => {
-  const [reply, setReply] = useState("");
-  const [typing, setTyping] = useState(false);
   const { wit } = route.params;
   const { user, content, image, replies, createdAt } = wit;
+  const [reply, setReply] = useState("");
+  const [typing, setTyping] = useState(false);
+  const [witReplies, setWitReplies] = useState(replies);
   const date = new Date(createdAt);
 
-  console.log(replies);
+  const handleReply = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        "http://10.0.0.147:4000/api/reply/create",
+        {
+          witId: wit.id,
+          content: reply,
+        }
+      );
+      setWitReplies((prev) => [...prev, data]);
+      setTyping(false);
+      setReply("");
+      Keyboard.dismiss();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={"padding"}
-      //   behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView>
         <View style={styles.witBox}>
           <View style={{ flex: 1, flexDirection: "row", padding: 16 }}>
-            {image ? (
-              <Image style={styles.witUserImage} source={{ uri: image }} />
+            {user.image ? (
+              <Image style={styles.witUserImage} source={{ uri: user.image }} />
             ) : (
               <Image
                 style={styles.witUserImage}
@@ -47,28 +68,36 @@ const Wit = ({ navigation, route }) => {
           <Text style={styles.witDate}>{date.toLocaleDateString()}</Text>
         </View>
 
-        {replies.length > 0 ? (
-          replies.map((reply) => <Text key={reply.id}>test</Text>)
+        {witReplies.length > 0 ? (
+          witReplies.map((reply) => (
+            <Reply key={`reply-${reply.id}`} reply={reply} />
+          ))
         ) : (
           <View style={styles.emptyReply}>
             <Text style={styles.emptyReplyText}>Be the first to comment!</Text>
           </View>
         )}
       </ScrollView>
-      {/* <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      > */}
-      <TextInput
-        style={styles.replyInput}
-        onFocus={() => setTyping(true)}
-        onBlur={() => setTyping(false)}
-        onChangeText={setReply}
-        value={reply}
-      />
-      {typing && <Button title="reply" />}
-      <View style={{ height: 25 }}></View>
+      <View style={{ backgroundColor: "black" }}>
+        <TextInput
+          style={styles.replyInput}
+          placeholder="reply"
+          placeholderTextColor="#fafafa"
+          color="#fafafa"
+          onFocus={() => setTyping(true)}
+          onBlur={() => setTyping(false)}
+          onChangeText={setReply}
+          value={reply}
+        />
+      </View>
+      {typing && (
+        <View style={{ backgroundColor: "black" }}>
+          <Button title="reply" onPress={handleReply} />
+        </View>
+      )}
+      <View style={{ height: 25, backgroundColor: "black" }}></View>
       {/* </KeyboardAvoidingView> */}
-      {typing && <View style={{ height: 70 }}></View>}
+      {typing && <View style={{ height: 70, backgroundColor: "black" }}></View>}
     </KeyboardAvoidingView>
   );
 };
@@ -98,13 +127,13 @@ const styles = StyleSheet.create({
     padding: 16,
     marginTop: 6,
     fontSize: 24,
+    fontWeight: "bold",
   },
   witText: {
     color: "#fafafa",
     marginLeft: 24,
     marginRight: 24,
     marginBottom: 24,
-    marginTop: 16,
     fontSize: 16,
   },
   witUserImage: {
@@ -130,6 +159,8 @@ const styles = StyleSheet.create({
   },
 
   replyInput: {
+    marginTop: 2,
+    backgroundColor: "black",
     alignSelf: "center",
     width: "90%",
     color: "#fafafa",

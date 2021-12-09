@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.makeComment = void 0;
+exports.makeReply = void 0;
 const index_1 = require("../../index");
-const makeComment = async (req, res) => {
+const makeReply = async (req, res) => {
     const { user, content, witId } = req.body;
-    const newComment = await index_1.prisma.reply.create({
+    const newReply = await index_1.prisma.reply.create({
         data: {
             content,
             user: {
@@ -28,6 +28,7 @@ const makeComment = async (req, res) => {
             },
         },
     });
+    res.status(201).json(newReply);
 };
-exports.makeComment = makeComment;
+exports.makeReply = makeReply;
 //# sourceMappingURL=comments.js.map

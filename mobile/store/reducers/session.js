@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
   "session/login",
   async (credentials) => {
     const response = await axios.post(
-      "http://10.0.0.147/api/session/login",
+      "http://10.0.0.147:4000/api/session/login",
       credentials
     );
     const { data } = response;

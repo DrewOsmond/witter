@@ -120,10 +120,7 @@ export const loginUser = async (req: Request, res: Response) => {
     //@ts-ignore
     where: credentials,
   });
-  console.log(credentials);
-  console.log(username, password);
 
-  console.log(user);
   if (user && bycrypt.compareSync(password, user.password)) {
     req.body = { user };
     signJWT(req, res);

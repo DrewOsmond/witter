@@ -33,8 +33,6 @@ const Content = ({ navigation }) => {
     setLikes(userLikes);
   }, []);
 
-  console.log(likes);
-
   const handleLike = async (wit) => {
     if (likes.has(wit.id)) {
       await axios
@@ -48,7 +46,6 @@ const Content = ({ navigation }) => {
         .then(() => {
           setLikes((prev) => {
             const newData = [...prev].filter((ele) => ele !== wit.id);
-            console.log(newData);
             return new Set(newData);
           });
           dispatch(unlikeWit({ userId: user.id, witId: wit.id }));
@@ -62,7 +59,6 @@ const Content = ({ navigation }) => {
             wit,
           }
         );
-        console.log(data);
         setLikes((prev) => {
           prev.add(wit.id);
           return new Set([...prev]);
@@ -127,6 +123,8 @@ const Content = ({ navigation }) => {
                         {likes.has(wit.id) ? "liked" : "like"}
                       </Text>
                     </TouchableHighlight>
+                    {/* {wit.content === "xzczc" &&
+                      console.log(wit, wit.likes.length)} */}
                     <Text style={styles.witReplies}>
                       {wit.likes.length > 0 ? wit.likes.length : " "}
                     </Text>

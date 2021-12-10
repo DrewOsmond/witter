@@ -36,8 +36,8 @@ const followerContent = createSlice({
             const like = wit.likes[i];
 
             if (like.userId === userId) {
-              wit.likes = wit.likes.splice(i, 1);
-              return;
+              wit.likes.splice(i, 1);
+              return state;
             }
           }
         }

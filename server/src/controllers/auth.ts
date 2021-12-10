@@ -78,6 +78,7 @@ export const authenticateUser = async (
 };
 
 export const registerUser = async (req: Request, res: Response) => {
+  console.log("HUH");
   const { username, email, password } = req.body;
   const hashedPassword = await bycrypt.hash(password, 12);
   const isEmail =
@@ -102,11 +103,13 @@ export const registerUser = async (req: Request, res: Response) => {
       },
     })
     .catch((err) => {
+      res.status(400).json({ error: "username or email already taken" });
       succeeded = false;
       return err;
     });
 
   if (user && succeeded) {
+    console.log("HUH");
     req.body = { user };
     signJWT(req, res);
     user.password = "";

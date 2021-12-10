@@ -54,6 +54,7 @@ export const likeWit = async (req: Request, res: Response) => {
     });
     res.status(201).json(newLike);
   } catch (e) {
+    console.log(e);
     res.sendStatus(500);
   }
 };

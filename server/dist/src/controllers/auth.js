@@ -42,7 +42,12 @@ const authenticateUser = async (req, res, next) => {
         const { email } = payload;
         let success = true;
         const user = await index_1.prisma.user
-            .findUnique({ where: { email } })
+            .findUnique({
+            where: { email },
+            include: {
+                witLikes: true,
+            },
+        })
             .catch((err) => {
             success = false;
             return err;
@@ -75,6 +80,9 @@ const registerUser = async (req, res) => {
             email: email.toLowerCase(),
             password: hashedPassword,
         },
+        include: {
+            witLikes: true,
+        },
     })
         .catch((err) => {
         succeeded = false;
@@ -100,6 +108,9 @@ const loginUser = async (req, res) => {
         : { email: email.toLowerCase() };
     const user = await index_1.prisma.user.findUnique({
         where: credentials,
+        include: {
+            witLikes: true,
+        },
     });
     if (user && bcrypt_1.default.compareSync(password, user.password)) {
         req.body = { user };

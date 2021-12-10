@@ -104,9 +104,9 @@ const Register = ({ navigation }) => {
             color="#1d9bf0"
             accessibilityLabel="Register button"
           />
-          {/* </View> */}
-          {/* </View> */}
         </KeyboardAvoidingView>
+        {/* </View> */}
+        {/* </View> */}
       </ScrollView>
     </View>
   );

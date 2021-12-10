@@ -13,7 +13,7 @@ const Wit: FC<Props> = ({ wit }) => {
   const { user, content, image, replies } = wit;
   const [displayHeart, setDisplayHeart] = useState("far");
   const [displayComments, setDisplayComments] = useState("far");
-
+  // console.log("test123 TEST", replies.length);
   return (
     <div className="wit">
       <Link to={`/${user.username}`}>
@@ -29,7 +29,7 @@ const Wit: FC<Props> = ({ wit }) => {
             onMouseOut={() => setDisplayComments("far")}
             className={`${displayComments} fa-comments`}
           ></i>
-          <div className="wit__replies__length">{replies.length}</div>
+          {/* <div className="wit__replies__length">{replies.length}</div> */}
         </div>
         <i
           onMouseOverCapture={() => setDisplayHeart("fas")}

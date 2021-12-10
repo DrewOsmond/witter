@@ -18,6 +18,31 @@ const followerContent = createSlice({
     addWit: (state, action) => {
       state.wits.unshift(action.payload);
     },
+    likeWit: (state, action) => {
+      const witId = action.payload.witId;
+
+      for (let wit of state.wits) {
+        if (wit.id === witId) {
+          wit.likes.push(action.payload);
+        }
+      }
+    },
+    unlikeWit: (state, action) => {
+      const { userId, witId } = action.payload;
+
+      for (let wit of state.wits) {
+        if (wit.id === witId) {
+          for (let i = 0; i < wit.likes.length; i++) {
+            const like = wit.likes[i];
+
+            if (like.userId === userId) {
+              wit.likes = wit.likes.splice(i, 1);
+              return;
+            }
+          }
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchFollowerWits.fulfilled, (state, action) => {
@@ -26,5 +51,5 @@ const followerContent = createSlice({
   },
 });
 
-export const { addWit } = followerContent.actions;
+export const { addWit, likeWit, unlikeWit } = followerContent.actions;
 export default followerContent.reducer;

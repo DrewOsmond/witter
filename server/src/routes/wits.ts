@@ -1,6 +1,11 @@
 import { Router } from "express";
 import asyncHandler from "express-async-handler";
-import { createWit, fetchRecentWits } from "../controllers/wits";
+import {
+  createWit,
+  likeWit,
+  unlikeWit,
+  fetchRecentWits,
+} from "../controllers/wits";
 import { authenticateUser } from "../controllers/auth";
 
 const router = Router();
@@ -10,6 +15,23 @@ router.post(
   authenticateUser,
   asyncHandler(async (req, res) => {
     createWit(req, res);
+  })
+);
+
+router.post(
+  "/like",
+  authenticateUser,
+  asyncHandler(async (req, res) => {
+    likeWit(req, res);
+  })
+);
+
+router.delete(
+  "/unlike",
+  authenticateUser,
+  asyncHandler(async (req, res) => {
+    console.log("wuh?");
+    unlikeWit(req, res);
   })
 );
 

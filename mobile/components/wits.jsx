@@ -1,10 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableHighlight,
+} from "react-native";
 
-const Wit = ({ wit }) => {
-  const { user, content, image, replies } = wit;
+const Wit = ({ wit, navigation }) => {
+  const { user, content, image, replies, likes } = wit;
+
   return (
-    <View style={styles.witContainer}>
+    <View>
       <View style={{ flex: 1, flexDirection: "row", padding: 16 }}>
         {image ? (
           <Image style={styles.witUserImage} source={{ uri: image }} />

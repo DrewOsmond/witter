@@ -54,7 +54,12 @@ export const authenticateUser = async (
 
     let success = true;
     const user = await prisma.user
-      .findUnique({ where: { email } })
+      .findUnique({
+        where: { email },
+        include: {
+          witLikes: true,
+        },
+      })
       .catch((err) => {
         success = false;
         return err;
@@ -92,6 +97,9 @@ export const registerUser = async (req: Request, res: Response) => {
         email: email.toLowerCase(),
         password: hashedPassword,
       },
+      include: {
+        witLikes: true,
+      },
     })
     .catch((err) => {
       succeeded = false;
@@ -119,6 +127,9 @@ export const loginUser = async (req: Request, res: Response) => {
   const user: User | null = await prisma.user.findUnique({
     //@ts-ignore
     where: credentials,
+    include: {
+      witLikes: true,
+    },
   });
 
   if (user && bycrypt.compareSync(password, user.password)) {

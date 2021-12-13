@@ -15,7 +15,6 @@ router.post("/like", auth_1.authenticateUser, (0, express_async_handler_1.defaul
     (0, wits_1.likeWit)(req, res);
 }));
 router.delete("/unlike", auth_1.authenticateUser, (0, express_async_handler_1.default)(async (req, res) => {
-    console.log("wuh?");
     (0, wits_1.unlikeWit)(req, res);
 }));
 router.get("/explore", (0, express_async_handler_1.default)(async (req, res) => {

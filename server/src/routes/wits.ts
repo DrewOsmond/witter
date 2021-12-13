@@ -30,7 +30,6 @@ router.delete(
   "/unlike",
   authenticateUser,
   asyncHandler(async (req, res) => {
-    console.log("wuh?");
     unlikeWit(req, res);
   })
 );

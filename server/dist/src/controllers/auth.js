@@ -65,7 +65,6 @@ const authenticateUser = async (req, res, next) => {
 };
 exports.authenticateUser = authenticateUser;
 const registerUser = async (req, res) => {
-    console.log("HUH");
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt_1.default.hash(password, 12);
     const isEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -91,7 +90,6 @@ const registerUser = async (req, res) => {
         return err;
     });
     if (user && succeeded) {
-        console.log("HUH");
         req.body = { user };
         (0, exports.signJWT)(req, res);
         user.password = "";

@@ -23,7 +23,6 @@ const Content = () => {
     dispatch(fetchFollowerWits());
 
     for (let like of likes) {
-      console.log(like);
       userLikes.add(like.witId);
     }
 

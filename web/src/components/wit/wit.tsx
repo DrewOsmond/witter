@@ -1,19 +1,21 @@
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { Wit } from "../../types";
+
 import "./wit.css";
 
-import { Wits } from "../../types";
-
 interface Props {
-  wit: Wits;
+  wit: Wit;
+  liked: boolean;
+  handleLikes: Function;
 }
 
-const Wit: FC<Props> = ({ wit }) => {
+const WitComponent: FC<Props> = ({ wit, liked, handleLikes }) => {
   const { user, content, image, replies } = wit;
-  const [displayHeart, setDisplayHeart] = useState("far");
   const [displayComments, setDisplayComments] = useState("far");
-  console.log(replies); //fix an issue where replies.length crashes the app
+  // console.log(replies); //fix an issue where replies.length crashes the app
+
   return (
     <div className="wit">
       <Link to={`/${user.username}`}>
@@ -32,13 +34,15 @@ const Wit: FC<Props> = ({ wit }) => {
           {/* <div className="wit__replies__length">{replies.length}</div> */}
         </div>
         <i
-          onMouseOverCapture={() => setDisplayHeart("fas")}
-          onMouseOut={() => setDisplayHeart("far")}
-          className={`${displayHeart} fa-heart`}
+          // onMouseOverCapture={() => setDisplayHeart("fas")}
+          // onMouseOut={() => setDisplayHeart("far")}
+          className={liked ? "fas fa-heart" : "far fa-heart"}
+          // className={`${displayHeart} fa-heart`}
+          onClick={() => handleLikes(wit, liked)}
         ></i>
       </div>
     </div>
   );
 };
 
-export default Wit;
+export default WitComponent;

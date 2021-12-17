@@ -11,6 +11,10 @@
   margin-left: 32px;
 }
 
+.far.fa-heart:hover {
+  color: rgb(221, 74, 74);
+}
+
 .fas.fa-heart {
   color: rgb(221, 74, 74);
 }

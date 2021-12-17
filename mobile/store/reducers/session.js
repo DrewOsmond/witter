@@ -9,12 +9,11 @@ const saveToken = async (jwt) => {
 export const registerUser = createAsyncThunk(
   "session/register",
   async (credentials) => {
-    console.log("??");
     const response = await axios.post(
       "http://10.0.0.147:4000/api/session/register",
       credentials
     );
-    console.log("does this work?");
+
     const { data } = response;
     const token = response.request.responseHeaders["Set-Cookie"]
       .split(";")[0]

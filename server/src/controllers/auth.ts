@@ -116,6 +116,7 @@ export const registerUser = async (req: Request, res: Response) => {
 };
 
 export const loginUser = async (req: Request, res: Response) => {
+  console.log(req.body);
   const { username, email, password } = req.body;
   if ((!username && !email) || !password) {
     return res.status(400).json({ error: "must include valid credentials" });
@@ -125,6 +126,7 @@ export const loginUser = async (req: Request, res: Response) => {
         username: username.toLowerCase().trim(),
       }
     : { email: email.toLowerCase() };
+  console.log(credentials, password);
   const user: User | null = await prisma.user.findUnique({
     //@ts-ignore
     where: credentials,

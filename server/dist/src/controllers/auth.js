@@ -98,6 +98,7 @@ const registerUser = async (req, res) => {
 };
 exports.registerUser = registerUser;
 const loginUser = async (req, res) => {
+    console.log(req.body);
     const { username, email, password } = req.body;
     if ((!username && !email) || !password) {
         return res.status(400).json({ error: "must include valid credentials" });
@@ -107,6 +108,7 @@ const loginUser = async (req, res) => {
             username: username.toLowerCase().trim(),
         }
         : { email: email.toLowerCase() };
+    console.log(credentials, password);
     const user = await index_1.prisma.user.findUnique({
         where: credentials,
         include: {

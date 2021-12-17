@@ -39,22 +39,42 @@ const Main = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Witter"
-        cardStyle={{ backgroundColor: "#15212a" }}
-      >
+      <Stack.Navigator initialRouteName="Witter">
         {!user ? (
           <>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={headerOptions}
+            />
+            <Stack.Screen
+              name="Register"
+              component={Register}
+              options={headerOptions}
+            />
           </>
         ) : (
           <>
-            <Stack.Screen name="Witter" component={Content} />
-            <Stack.Screen name="Wit" component={Wit} />
+            <Stack.Screen
+              name="Witter"
+              component={Content}
+              options={headerOptions}
+            />
+            <Stack.Screen name="Wit" component={Wit} options={headerOptions} />
           </>
         )}
       </Stack.Navigator>
     </NavigationContainer>
   );
+};
+
+const headerOptions = {
+  headerStyle: {
+    backgroundColor: "#15212a",
+  },
+  // headerTintColor: "#15212a",
+  headerTitleStyle: {
+    fontWeight: "bold",
+    color: "white",
+  },
 };

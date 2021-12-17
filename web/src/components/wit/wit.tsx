@@ -13,7 +13,7 @@ const Wit: FC<Props> = ({ wit }) => {
   const { user, content, image, replies } = wit;
   const [displayHeart, setDisplayHeart] = useState("far");
   const [displayComments, setDisplayComments] = useState("far");
-  // console.log("test123 TEST", replies.length);
+  console.log(replies); //fix an issue where replies.length crashes the app
   return (
     <div className="wit">
       <Link to={`/${user.username}`}>

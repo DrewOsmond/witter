@@ -22,7 +22,7 @@ const Register = ({ navigation }) => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    console.log("??");
+
     const signupInfo = { password, username, email };
 
     if (email.length < 1 || username.length < 1 || password.length < 1) {

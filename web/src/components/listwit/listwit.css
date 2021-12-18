@@ -7,9 +7,10 @@
   max-width: 700px;
 }
 
-/* .wit:hover {
-  cursor: pointer;
-} */
+.wit__clickable {
+  text-decoration: none;
+  color: white;
+}
 
 .wit__clickable:hover {
   cursor: pointer;

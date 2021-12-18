@@ -10,6 +10,7 @@ import Sidebar from "../sidebar/sidebar";
 import Register from "../register/register";
 import Profile from "../profile/profile";
 import Login from "../login/login";
+import { SelectedWit } from "../wit/wit";
 
 function App() {
   const { user } = useAppSelector((state) => state.session);
@@ -27,23 +28,19 @@ function App() {
 
   return (
     <>
+      {user && <Navbar />}
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" />
         {user && (
-          <Route
-            path="/"
-            element={
-              <>
-                <Navbar />
-                <Content />
-                <Sidebar />
-              </>
-            }
-          />
+          <>
+            <Route path="/" element={<Content />} />
+            <Route path="/wit/:id" element={<SelectedWit />} />
+          </>
         )}
         <Route path="/:user" element={<Profile />} />
       </Routes>
+      {user && <Sidebar />}
 
       {!user && <Login />}
     </>

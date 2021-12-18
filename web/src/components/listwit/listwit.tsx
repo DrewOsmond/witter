@@ -21,10 +21,10 @@ const ListWits: FC<Props> = ({ wit, liked, handleLikes }) => {
       <Link to={`/${user.username}`}>
         <div className="wit__username">{user.username}</div>
       </Link>
-      <div className="wit__clickable">
+      <Link className="wit__clickable" to={`/wit/${wit.id}`} state={{ wit }}>
         <div>{content}</div>
         {image ? <img src={image} alt="post" /> : null}
-      </div>
+      </Link>
       <div className="comments__like">
         <div className="wit__comments">
           <i

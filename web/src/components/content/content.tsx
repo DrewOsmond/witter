@@ -1,12 +1,13 @@
 import "./content.css";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { logoutUser } from "../../store/reducers/session";
-import NewWit from "../newWit/newWit";
-import WitComponent from "../wit/wit";
 import { fetchFollowerWits } from "../../store/reducers/followerWits";
 import { useEffect, useState } from "react";
 import { likeWit, unlikeWit } from "../../store/reducers/session";
 import { Wit } from "../../types";
+
+import NewWit from "../newWit/newWit";
+import ListWits from "../listwit/listwit";
 
 const Content = () => {
   const dispatch = useAppDispatch();
@@ -14,12 +15,10 @@ const Content = () => {
 
   const followerContent = useAppSelector((state) => state.followerContent);
   const wits: Wit[] = followerContent.wits;
-  // const userLikes = new Set(likes);
   const [userLikes, setUserLikes] = useState(new Set());
 
   useEffect(() => {
     const userLikes = new Set();
-
     dispatch(fetchFollowerWits());
 
     for (let like of likes) {
@@ -61,7 +60,7 @@ const Content = () => {
       <section>
         {wits.length > 0 &&
           wits?.map((wit) => (
-            <WitComponent
+            <ListWits
               wit={wit}
               liked={userLikes.has(wit.id)}
               key={wit.id}

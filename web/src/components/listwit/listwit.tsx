@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Wit } from "../../types";
 
-import "./wit.css";
+import "./listwit.css";
 
 interface Props {
   wit: Wit;
@@ -11,7 +11,7 @@ interface Props {
   handleLikes: Function;
 }
 
-const WitComponent: FC<Props> = ({ wit, liked, handleLikes }) => {
+const ListWits: FC<Props> = ({ wit, liked, handleLikes }) => {
   const { user, content, image, replies } = wit;
   const [displayComments, setDisplayComments] = useState("far");
   // console.log(replies); //fix an issue where replies.length crashes the app
@@ -21,9 +21,10 @@ const WitComponent: FC<Props> = ({ wit, liked, handleLikes }) => {
       <Link to={`/${user.username}`}>
         <div className="wit__username">{user.username}</div>
       </Link>
-      <div>{content}</div>
-      {image ? <img src={image} alt="post" /> : null}
-
+      <div className="wit__clickable">
+        <div>{content}</div>
+        {image ? <img src={image} alt="post" /> : null}
+      </div>
       <div className="comments__like">
         <div className="wit__comments">
           <i
@@ -34,10 +35,7 @@ const WitComponent: FC<Props> = ({ wit, liked, handleLikes }) => {
           {/* <div className="wit__replies__length">{replies.length}</div> */}
         </div>
         <i
-          // onMouseOverCapture={() => setDisplayHeart("fas")}
-          // onMouseOut={() => setDisplayHeart("far")}
           className={liked ? "fas fa-heart" : "far fa-heart"}
-          // className={`${displayHeart} fa-heart`}
           onClick={() => handleLikes(wit, liked)}
         ></i>
       </div>
@@ -45,4 +43,4 @@ const WitComponent: FC<Props> = ({ wit, liked, handleLikes }) => {
   );
 };
 
-export default WitComponent;
+export default ListWits;

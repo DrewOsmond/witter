@@ -7,8 +7,17 @@
   max-width: 700px;
 }
 
+/* .wit:hover {
+  cursor: pointer;
+} */
+
+.wit__clickable:hover {
+  cursor: pointer;
+}
+
 .wit__username {
   margin-left: 32px;
+  z-index: 5;
 }
 
 .far.fa-heart:hover {

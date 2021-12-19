@@ -58,6 +58,16 @@ const sessionSlice = createSlice({
   } as UserSession,
   reducers: {},
   extraReducers: (builder) => {
+    const getLikeIds = (likes: Like[]) => {
+      const likeIds: Number[] = [];
+
+      for (let like of likes) {
+        likeIds.push(like.witId);
+      }
+
+      return likeIds;
+    };
+
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.status = "success";
       state.user = action.payload;
@@ -71,6 +81,7 @@ const sessionSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.status = "success";
       state.user = action.payload;
+      state.likes = getLikeIds(action.payload.witLikes);
     });
 
     builder.addCase(loginUser.rejected, (state, action) => {
@@ -81,7 +92,8 @@ const sessionSlice = createSlice({
     builder.addCase(restoreUser.fulfilled, (state, action) => {
       state.status = "success";
       state.user = action.payload;
-      state.likes = action.payload.witLikes;
+      console.log(action.payload);
+      state.likes = getLikeIds(action.payload.witLikes);
     });
 
     builder.addCase(restoreUser.rejected, (state, _action) => {
@@ -100,24 +112,13 @@ const sessionSlice = createSlice({
     });
 
     builder.addCase(likeWit.fulfilled, (state, action) => {
+      console.log(action.payload.witId);
       state.likes.push(action.payload.witId);
     });
 
     builder.addCase(unlikeWit.fulfilled, (state, action) => {
       const id = action.payload;
-      let idx = -1;
-
-      for (let i = 0; i < state.likes.length; i++) {
-        const wit = state.likes[i];
-        if (wit.witId === id) {
-          idx = i;
-          break;
-        }
-      }
-
-      if (id !== -1) {
-        state.likes.splice(idx, 0);
-      }
+      state.likes = state.likes.filter((e) => e !== id);
     });
   },
 });

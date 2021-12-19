@@ -37,22 +37,22 @@ const SelectedWit = () => {
     return (
       <>
         <div className="content__page">
-          <div className="selected-wit">
+          <div className="wit">
             <Link to={`/${user.username}`}>
-              <div className="selected-wit__username">{user.username}</div>
+              <div className="wit__username">{user.username}</div>
             </Link>
             <div>{content}</div>
             {image ? <img src={image} alt="users post" /> : null}
-          </div>
-          <div className="comments__like">
-            <div className="wit__comments">
-              <i className="fas fa-comments"></i>
-              {/* <div className="wit__replies__length">{replies.length}</div> */}
+            <div className="comments__like">
+              <div className="wit__comments">
+                <i className="fas fa-comments"></i>
+                {/* <div className="wit__replies__length">{replies.length}</div> */}
+              </div>
+              <i
+                className={liked ? "fas fa-heart" : "far fa-heart"}
+                // onClick={() => handleLikes(wit, liked)}
+              ></i>
             </div>
-            <i
-              className={liked ? "fas fa-heart" : "far fa-heart"}
-              // onClick={() => handleLikes(wit, liked)}
-            ></i>
           </div>
         </div>
       </>

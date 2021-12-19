@@ -6,40 +6,42 @@ import { useEffect, useState } from "react";
 import { likeWit, unlikeWit } from "../../store/reducers/session";
 import { Wit } from "../../types";
 
-import NewWit from "../newWit/newWit";
+import NewWit from "../newwit/newWit";
 import ListWits from "../listwit/listwit";
 
 const Content = () => {
   const dispatch = useAppDispatch();
-  const { likes } = useAppSelector((state) => state.session);
+  const { likes, user } = useAppSelector((state) => state.session);
 
   const followerContent = useAppSelector((state) => state.followerContent);
   const wits: Wit[] = followerContent.wits;
   const [userLikes, setUserLikes] = useState(new Set());
 
   useEffect(() => {
-    const userLikes = new Set();
     dispatch(fetchFollowerWits());
-
-    for (let like of likes) {
-      userLikes.add(like.witId);
-    }
-
-    setUserLikes(userLikes);
   }, []);
+
+  useEffect(() => {
+    // const userLikes = new Set();
+    // for (let like of likes) {
+    //   userLikes.add(like.witId);
+    // }
+    console.log("??");
+    setUserLikes(new Set(likes));
+  }, [likes, user]);
 
   const handleLikes = (wit: Wit, liked: boolean) => {
     if (!liked) {
       //@ts-ignore
       dispatch(likeWit(wit));
-      userLikes.add(wit.id);
-      const newSet = new Set(userLikes);
+      // userLikes.add(wit.id);
+      const newSet = new Set(likes);
       setUserLikes(newSet);
     } else {
       //@ts-ignore
       dispatch(unlikeWit(wit));
-      userLikes.delete(wit.id);
-      const newSet = new Set(userLikes);
+      // userLikes.delete(wit.id);
+      const newSet = new Set(likes);
       setUserLikes(newSet);
     }
   };

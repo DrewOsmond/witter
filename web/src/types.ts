@@ -10,7 +10,7 @@ export interface User {
 export interface UserSession {
   user?: User | null;
   status: string | null;
-  likes: { witId: Number }[];
+  likes: Number[];
 }
 
 export type Like = {

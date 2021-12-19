@@ -5,6 +5,7 @@ import {
   likeWit,
   unlikeWit,
   fetchRecentWits,
+  findWit,
 } from "../controllers/wits";
 import { authenticateUser } from "../controllers/auth";
 
@@ -38,6 +39,13 @@ router.get(
   "/explore",
   asyncHandler(async (req, res) => {
     fetchRecentWits(req, res);
+  })
+);
+
+router.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    findWit(req, res);
   })
 );
 

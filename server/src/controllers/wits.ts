@@ -136,3 +136,63 @@ export const fetchRecentWits = async (req: Request, res: Response) => {
 
   res.status(200).json(recentWits);
 };
+
+export const findWit = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.sendStatus(400);
+  }
+
+  const wit = await prisma.wit.findUnique({
+    include: {
+      user: {
+        select: {
+          username: true,
+          picture: true,
+          id: true,
+        },
+      },
+      likes: {
+        include: {
+          user: {
+            select: {
+              username: true,
+              picture: true,
+              id: true,
+            },
+          },
+        },
+      },
+      replies: {
+        include: {
+          user: {
+            select: {
+              username: true,
+              id: true,
+              picture: true,
+            },
+          },
+          likes: {
+            include: {
+              user: {
+                select: {
+                  username: true,
+                  id: true,
+                  picture: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    where: { id: Number(id) },
+  });
+
+  if (wit) {
+    return res.status(200).json(wit);
+  } else {
+    return res.status(404).json({ error: "no wit found" });
+  }
+};

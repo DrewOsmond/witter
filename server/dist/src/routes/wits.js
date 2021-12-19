@@ -20,5 +20,8 @@ router.delete("/unlike", auth_1.authenticateUser, (0, express_async_handler_1.de
 router.get("/explore", (0, express_async_handler_1.default)(async (req, res) => {
     (0, wits_1.fetchRecentWits)(req, res);
 }));
+router.get("/:id", (0, express_async_handler_1.default)(async (req, res) => {
+    (0, wits_1.findWit)(req, res);
+}));
 exports.default = router;
 //# sourceMappingURL=wits.js.map

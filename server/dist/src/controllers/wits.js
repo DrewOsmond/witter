@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchRecentWits = exports.unlikeWit = exports.likeWit = exports.createWit = void 0;
+exports.findWit = exports.fetchRecentWits = exports.unlikeWit = exports.likeWit = exports.createWit = void 0;
 const index_1 = require("../../index");
 const createWit = async (req, res) => {
     const { content, image } = req.body;
@@ -135,4 +135,62 @@ const fetchRecentWits = async (req, res) => {
     res.status(200).json(recentWits);
 };
 exports.fetchRecentWits = fetchRecentWits;
+const findWit = async (req, res) => {
+    const { id } = req.params;
+    if (!id) {
+        return res.sendStatus(400);
+    }
+    const wit = await index_1.prisma.wit.findUnique({
+        include: {
+            user: {
+                select: {
+                    username: true,
+                    picture: true,
+                    id: true,
+                },
+            },
+            likes: {
+                include: {
+                    user: {
+                        select: {
+                            username: true,
+                            picture: true,
+                            id: true,
+                        },
+                    },
+                },
+            },
+            replies: {
+                include: {
+                    user: {
+                        select: {
+                            username: true,
+                            id: true,
+                            picture: true,
+                        },
+                    },
+                    likes: {
+                        include: {
+                            user: {
+                                select: {
+                                    username: true,
+                                    id: true,
+                                    picture: true,
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        where: { id: Number(id) },
+    });
+    if (wit) {
+        return res.status(200).json(wit);
+    }
+    else {
+        return res.status(404).json({ error: "no wit found" });
+    }
+};
+exports.findWit = findWit;
 //# sourceMappingURL=wits.js.map

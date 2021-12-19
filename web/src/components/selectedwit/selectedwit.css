@@ -1,0 +1,4 @@
+.selected-wit {
+  display: flex;
+  flex-direction: column;
+}

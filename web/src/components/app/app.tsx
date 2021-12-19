@@ -10,7 +10,7 @@ import Sidebar from "../sidebar/sidebar";
 import Register from "../register/register";
 import Profile from "../profile/profile";
 import Login from "../login/login";
-import { SelectedWit } from "../wit/wit";
+import SelectedWit from "../selectedwit/selectedwit";
 
 function App() {
   const { user } = useAppSelector((state) => state.session);

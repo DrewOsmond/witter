@@ -144,7 +144,7 @@ export const findWit = async (req: Request, res: Response) => {
     return res.sendStatus(400);
   }
 
-  const wit = await prisma.wit.findUnique({
+  const wit = await prisma.wit.findMany({
     include: {
       user: {
         select: {

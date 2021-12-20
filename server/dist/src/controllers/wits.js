@@ -140,7 +140,7 @@ const findWit = async (req, res) => {
     if (!id) {
         return res.sendStatus(400);
     }
-    const wit = await index_1.prisma.wit.findUnique({
+    const wit = await index_1.prisma.wit.findMany({
         include: {
             user: {
                 select: {

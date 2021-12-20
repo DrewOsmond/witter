@@ -6,7 +6,8 @@ import { WitReply } from "../../types";
 import axios from "axios";
 import "./selectedwit.css";
 
-import Reply from "../reply/reply";
+// import Reply from "../reply/reply";
+import ListWits from "../listwit/listwit";
 
 const SelectedWit = () => {
   const dispatch = useAppDispatch();
@@ -23,9 +24,10 @@ const SelectedWit = () => {
     if (!wit) {
       (async () => {
         const { data } = await axios.get(`/api/wit/${id}`);
-
+        console.log(data);
         setLiked(likes.includes(Number(id)));
-        setWit(data);
+        setWit(data[0]);
+        // setReplies(data[0].replies);
       })();
     }
   }, []);
@@ -36,6 +38,18 @@ const SelectedWit = () => {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
+
+  const handleSubmit = async () => {
+    const { data } = await axios.post("/api/reply/create", {
+      content: text,
+      witId: wit.id,
+    });
+    setText("");
+    wit.replies.push(data);
+    // setReplies((prev: []) => [...prev, data]);
+    setWit({ ...wit });
+  };
+  // console.log("??", replies);
 
   if (!wit) {
     return null;
@@ -89,7 +103,7 @@ const SelectedWit = () => {
                 </div>
 
                 <button
-                  // onClick={handleSubmit}
+                  onClick={handleSubmit}
                   className={`new__wit__button
                 ${
                   text.length > 0
@@ -103,8 +117,15 @@ const SelectedWit = () => {
               </div>
             )}
           </div>
-          {replies.length > 0 &&
-            replies.map((comment: WitReply) => <Reply reply={comment} />)}
+          {replies &&
+            replies.map((comment: WitReply) => (
+              <ListWits
+                reply={comment}
+                key={`reply-${comment.id}`}
+                liked={false}
+                handleLikes={() => {}}
+              />
+            ))}
         </div>
       </>
     );

@@ -1,36 +1,57 @@
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Wit } from "../../types";
+import { Wit, Reply, User } from "../../types";
 
 import "./listwit.css";
 
 interface Props {
-  wit: Wit;
+  wit?: Wit;
+  reply?: Reply;
   liked: boolean;
   handleLikes: Function;
 }
 
-const ListWits: FC<Props> = ({ wit, liked, handleLikes }) => {
-  const { user, content, image, replies } = wit;
+interface Data {
+  user: User;
+  content: String;
+  likez: [];
+  replies: [];
+  image?: String;
+}
+
+const ListWits: FC<Props> = ({ wit, liked, handleLikes, reply }) => {
+  // const { user, content, image, replies } = wit;
+  const data = {
+    user: wit ? wit.user : reply?.user,
+    content: wit ? wit.content : reply?.content,
+    likez: wit ? wit.likes : reply?.likes,
+    replies: wit ? wit.replies : reply?.replies,
+    image: wit
+      ? wit.image
+        ? wit.image
+        : null
+      : reply?.image
+      ? reply.image
+      : null,
+    // likes: wit ? wit.likes :
+  };
+  const { user, content, image, replies, likez } = data;
   const [displayComments, setDisplayComments] = useState("far");
-  const [likes, setLikes] = useState(wit.likes);
-  if (wit.id == 1) {
-    // console.log(likes);
-    // console.log(wit.likes);
-  }
+  const [likes, setLikes] = useState(likez);
+
   return (
     <div className="wit">
-      <Link to={`/${user.username}`} className="wit__username">
-        {user.username}
+      <Link to={`/${user?.username}`} className="wit__username">
+        {user?.username}
       </Link>
       <Link
         className="wit__clickable"
-        to={`/wit/${wit.id}`}
+        to={`/wit/${wit?.id}`}
         state={{ wit, liked }}
       >
         <div>{content}</div>
-        {image ? <img src={image} alt="post" /> : null}
+        {image ? <img src={`${image}`} alt="post" /> : null}
       </Link>
       <div className="comments__like">
         <div className="wit__comments">
@@ -40,7 +61,7 @@ const ListWits: FC<Props> = ({ wit, liked, handleLikes }) => {
             className={`${displayComments} fa-comments`}
           ></i>
           <div className="wit__replies__length">
-            {replies.length > 0 ? replies.length : ""}
+            {replies && replies.length > 0 ? replies?.length : ""}
           </div>
         </div>
 
@@ -50,7 +71,7 @@ const ListWits: FC<Props> = ({ wit, liked, handleLikes }) => {
             onClick={() => handleLikes(wit, liked, setLikes)}
           ></i>
           <div className="wit__likes__length">
-            {likes.length > 0 ? likes.length : ""}
+            {likes && likes.length > 0 ? likes.length : ""}
           </div>
         </div>
       </div>

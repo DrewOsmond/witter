@@ -32,12 +32,22 @@ export interface Wit {
   likes: WitLike[];
 }
 
-export interface WitReply {
-  id: Number;
+export interface Reply {
   content: String;
+  id: Number;
+  likes: [];
   user: User;
-  createdAt: String;
-  likes: ReplyLike[];
+  image?: String;
+  replies: Reply[];
+}
+
+export interface WitReply {
+  content: String;
+  id: Number;
+  likes: [];
+  user: User;
+  image?: String;
+  replies: Reply[];
 }
 
 export interface ReplyLike {

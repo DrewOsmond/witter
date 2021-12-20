@@ -19,6 +19,7 @@
 .wit__username {
   margin-left: 32px;
   z-index: 5;
+  width: 65px;
 }
 
 .far.fa-heart:hover {
@@ -29,11 +30,6 @@
   color: rgb(221, 74, 74);
 }
 
-.wit__replies__length {
-  font-size: 0.8 em;
-  margin-left: 8px;
-}
-
 .comments__like {
   display: flex;
   justify-content: space-around;
@@ -42,6 +38,20 @@
 
 .wit__comments {
   display: flex;
+}
+
+.wit__replies__length {
+  font-size: 0.8 em;
+  margin-left: 8px;
+}
+
+.wit__likes {
+  display: flex;
+}
+
+.wit__likes__length {
+  font-size: 0.8 em;
+  margin-left: 8px;
 }
 
 .fa-heart:hover {

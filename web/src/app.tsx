@@ -1,16 +1,15 @@
-import "./app.css";
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { restoreUser } from "../../store/reducers/session";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { restoreUser } from "./store/reducers/session";
+import { useAppSelector, useAppDispatch } from "./store/hooks";
 
-import Content from "../content/content";
-import Navbar from "../navbar/navbar";
-import Sidebar from "../sidebar/sidebar";
-import Register from "../register/register";
-import Profile from "../profile/profile";
-import Login from "../login/login";
-import SelectedWit from "../selectedwit/selectedwit";
+import Content from "./components/content/content";
+import Navbar from "./components/navbar/navbar";
+import Sidebar from "./components/sidebar/sidebar";
+import Register from "./components/register/register";
+import Profile from "./components/profile/profile";
+import Login from "./components/login/login";
+import SelectedWit from "./components/selectedwit/selectedwit";
 
 function App() {
   const { user } = useAppSelector((state) => state.session);

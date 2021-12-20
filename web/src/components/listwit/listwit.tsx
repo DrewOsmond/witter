@@ -14,12 +14,15 @@ interface Props {
 const ListWits: FC<Props> = ({ wit, liked, handleLikes }) => {
   const { user, content, image, replies } = wit;
   const [displayComments, setDisplayComments] = useState("far");
-  // console.log(replies); //fix an issue where replies.length crashes the app
-
+  const [likes, setLikes] = useState(wit.likes);
+  if (wit.id == 1) {
+    // console.log(likes);
+    // console.log(wit.likes);
+  }
   return (
     <div className="wit">
-      <Link to={`/${user.username}`}>
-        <div className="wit__username">{user.username}</div>
+      <Link to={`/${user.username}`} className="wit__username">
+        {user.username}
       </Link>
       <Link
         className="wit__clickable"
@@ -36,12 +39,20 @@ const ListWits: FC<Props> = ({ wit, liked, handleLikes }) => {
             onMouseOut={() => setDisplayComments("far")}
             className={`${displayComments} fa-comments`}
           ></i>
-          {/* <div className="wit__replies__length">{replies.length}</div> */}
+          <div className="wit__replies__length">
+            {replies.length > 0 ? replies.length : ""}
+          </div>
         </div>
-        <i
-          className={liked ? "fas fa-heart" : "far fa-heart"}
-          onClick={() => handleLikes(wit, liked)}
-        ></i>
+
+        <div className="wit__likes">
+          <i
+            className={liked ? "fas fa-heart" : "far fa-heart"}
+            onClick={() => handleLikes(wit, liked, setLikes)}
+          ></i>
+          <div className="wit__likes__length">
+            {likes.length > 0 ? likes.length : ""}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -131,7 +131,7 @@
 
 @media only screen and (max-width: 620px) {
   .content__page {
-    position: absolute;
+    position: relative;
     /* right: 6%; */
     /* left: 10%; */
     left: auto;

@@ -4,7 +4,7 @@ import { logoutUser } from "../../store/reducers/session";
 import { fetchFollowerWits } from "../../store/reducers/followerWits";
 import { useEffect, useState } from "react";
 import { likeWit, unlikeWit } from "../../store/reducers/session";
-import { Wit } from "../../types";
+import { WitLike, Wit } from "../../types";
 
 import NewWit from "../newwit/newWit";
 import ListWits from "../listwit/listwit";
@@ -19,30 +19,27 @@ const Content = () => {
 
   useEffect(() => {
     dispatch(fetchFollowerWits());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    // const userLikes = new Set();
-    // for (let like of likes) {
-    //   userLikes.add(like.witId);
-    // }
-    console.log("??");
     setUserLikes(new Set(likes));
   }, [likes, user]);
 
-  const handleLikes = (wit: Wit, liked: boolean) => {
+  const handleLikes = (wit: Wit, liked: boolean, setLikes: Function) => {
+    console.log(liked);
     if (!liked) {
       //@ts-ignore
       dispatch(likeWit(wit));
-      // userLikes.add(wit.id);
       const newSet = new Set(likes);
       setUserLikes(newSet);
+
+      setLikes([...wit.likes]);
     } else {
       //@ts-ignore
       dispatch(unlikeWit(wit));
-      // userLikes.delete(wit.id);
       const newSet = new Set(likes);
       setUserLikes(newSet);
+      setLikes(wit.likes.filter((lyk: WitLike) => lyk.userId !== user?.id));
     }
   };
 

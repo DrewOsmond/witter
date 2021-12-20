@@ -1,4 +1,3 @@
-.selected-wit {
-  display: flex;
-  flex-direction: column;
+.selected__wit {
+  padding-top: 32px;
 }

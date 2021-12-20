@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { Like, UserSession, Wit } from "../../types";
+import { WitLike, UserSession, Wit } from "../../types";
 
 export const registerUser = createAsyncThunk(
   "session/register",
@@ -58,7 +58,7 @@ const sessionSlice = createSlice({
   } as UserSession,
   reducers: {},
   extraReducers: (builder) => {
-    const getLikeIds = (likes: Like[]) => {
+    const getLikeIds = (likes: WitLike[]) => {
       const likeIds: Number[] = [];
 
       for (let like of likes) {
@@ -92,7 +92,6 @@ const sessionSlice = createSlice({
     builder.addCase(restoreUser.fulfilled, (state, action) => {
       state.status = "success";
       state.user = action.payload;
-      console.log(action.payload);
       state.likes = getLikeIds(action.payload.witLikes);
     });
 
@@ -112,13 +111,15 @@ const sessionSlice = createSlice({
     });
 
     builder.addCase(likeWit.fulfilled, (state, action) => {
-      console.log(action.payload.witId);
       state.likes.push(action.payload.witId);
     });
 
     builder.addCase(unlikeWit.fulfilled, (state, action) => {
       const id = action.payload;
-      state.likes = state.likes.filter((e) => e !== id);
+      state.likes = state.likes.filter((e) => {
+        // console.log(e, id);
+        return e !== id;
+      });
     });
   },
 });

@@ -4,7 +4,7 @@ export interface User {
   email: string;
   password: string;
   picture?: string | null;
-  witLikes: Like[];
+  witLikes: WitLike[];
 }
 
 export interface UserSession {
@@ -13,7 +13,7 @@ export interface UserSession {
   likes: Number[];
 }
 
-export type Like = {
+export type WitLike = {
   userId: Number;
   witId: Number;
 };
@@ -29,4 +29,18 @@ export interface Wit {
   id: number;
   user: User;
   replies: [];
+  likes: WitLike[];
+}
+
+export interface WitReply {
+  id: Number;
+  content: String;
+  user: User;
+  createdAt: String;
+  likes: ReplyLike[];
+}
+
+export interface ReplyLike {
+  userId: Number;
+  replyId: Number;
 }

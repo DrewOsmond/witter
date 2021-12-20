@@ -4,9 +4,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { WitReply } from "../../types";
 import axios from "axios";
-import "./selectedwit.css";
 
-// import Reply from "../reply/reply";
 import ListWits from "../listwit/listwit";
 
 const SelectedWit = () => {

@@ -5,6 +5,7 @@ export interface User {
   password: string;
   picture?: string | null;
   witLikes: WitLike[];
+  replyLikes: ReplyLike[];
 }
 
 export interface UserSession {

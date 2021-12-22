@@ -46,6 +46,7 @@ const authenticateUser = async (req, res, next) => {
             where: { email },
             include: {
                 witLikes: true,
+                replyLikes: true,
             },
         })
             .catch((err) => {
@@ -82,6 +83,7 @@ const registerUser = async (req, res) => {
         },
         include: {
             witLikes: true,
+            replyLikes: true,
         },
     })
         .catch((err) => {
@@ -113,6 +115,7 @@ const loginUser = async (req, res) => {
         where: credentials,
         include: {
             witLikes: true,
+            replyLikes: true,
         },
     });
     if (user && bcrypt_1.default.compareSync(password, user.password)) {

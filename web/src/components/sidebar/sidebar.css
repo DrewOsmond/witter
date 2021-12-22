@@ -30,7 +30,7 @@
 
 @media only screen and (min-width: 1225px) {
   .sidebar {
-    position: absolute;
+    position: fixed;
     top: 4%;
     right: 13%;
     display: flex;
@@ -41,7 +41,7 @@
 
 @media only screen and (max-width: 1224px) {
   .sidebar {
-    position: absolute;
+    position: fixed;
     top: 4%;
     right: 2.5%;
     display: flex;

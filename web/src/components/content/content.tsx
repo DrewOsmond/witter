@@ -26,7 +26,6 @@ const Content = () => {
   }, [likes, user]);
 
   const handleLikes = (wit: Wit, liked: boolean, setLikes: Function) => {
-    console.log(liked);
     if (!liked) {
       //@ts-ignore
       dispatch(likeWit(wit));

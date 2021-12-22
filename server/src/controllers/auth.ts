@@ -58,6 +58,7 @@ export const authenticateUser = async (
         where: { email },
         include: {
           witLikes: true,
+          replyLikes: true,
         },
       })
       .catch((err) => {
@@ -99,6 +100,7 @@ export const registerUser = async (req: Request, res: Response) => {
       },
       include: {
         witLikes: true,
+        replyLikes: true,
       },
     })
     .catch((err) => {
@@ -132,6 +134,7 @@ export const loginUser = async (req: Request, res: Response) => {
     where: credentials,
     include: {
       witLikes: true,
+      replyLikes: true,
     },
   });
 

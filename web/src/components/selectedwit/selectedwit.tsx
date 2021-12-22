@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { addComment } from "../../store/reducers/followerWits";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -18,15 +19,24 @@ const SelectedWit = () => {
     location.state?.wit ? location.state.wit : null
   );
 
+  const [replyLikes, setReplyLikes] = useState(new Set());
+
   useEffect(() => {
     if (!wit) {
       (async () => {
         const { data } = await axios.get(`/api/wit/${id}`);
-        console.log(data);
         setLiked(likes.includes(Number(id)));
         setWit(data[0]);
         // setReplies(data[0].replies);
       })();
+    }
+
+    if (!user) {
+      return;
+    } else {
+      const replyLikeIds: Number[] = [];
+      user?.replyLikes.forEach((like) => replyLikeIds.push(like.replyId));
+      setReplyLikes(new Set(replyLikeIds));
     }
   }, []);
 
@@ -42,6 +52,7 @@ const SelectedWit = () => {
       content: text,
       witId: wit.id,
     });
+    dispatch(addComment({ comment: data, wit }));
     setText("");
     wit.replies.push(data);
     // setReplies((prev: []) => [...prev, data]);
@@ -120,7 +131,8 @@ const SelectedWit = () => {
               <ListWits
                 reply={comment}
                 key={`reply-${comment.id}`}
-                liked={false}
+                liked={replyLikes.has(Number(comment.id))}
+                //@ts-ignore
                 handleLikes={() => {}}
               />
             ))}

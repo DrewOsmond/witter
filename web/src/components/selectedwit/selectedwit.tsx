@@ -1,16 +1,17 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addComment } from "../../store/reducers/followerWits";
+import { likeReply, unlikeReply } from "../../store/reducers/session";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { WitReply } from "../../types";
+import { Reply, WitReply } from "../../types";
 import axios from "axios";
 
 import ListWits from "../listwit/listwit";
 
 const SelectedWit = () => {
   const dispatch = useAppDispatch();
-  const { user, likes } = useAppSelector((state) => state.session);
+  const { user, likes, replyLikes } = useAppSelector((state) => state.session);
   const location = useLocation();
   const { id } = useParams();
   const [text, setText] = useState("");
@@ -19,26 +20,25 @@ const SelectedWit = () => {
     location.state?.wit ? location.state.wit : null
   );
 
-  const [replyLikes, setReplyLikes] = useState(new Set());
-
+  const [replyLikez, setReplyLikez] = useState(new Set(replyLikes));
+  console.log(replyLikes);
   useEffect(() => {
     if (!wit) {
       (async () => {
         const { data } = await axios.get(`/api/wit/${id}`);
         setLiked(likes.includes(Number(id)));
         setWit(data[0]);
-        // setReplies(data[0].replies);
       })();
     }
 
     if (!user) {
       return;
-    } else {
-      const replyLikeIds: Number[] = [];
-      user?.replyLikes.forEach((like) => replyLikeIds.push(like.replyId));
-      setReplyLikes(new Set(replyLikeIds));
     }
   }, []);
+
+  useEffect(() => {
+    setReplyLikez(new Set(replyLikes));
+  }, [replyLikes, user]);
 
   const handleChange = (e: any) => {
     if (e.target.value.length >= 140) return;
@@ -55,10 +55,21 @@ const SelectedWit = () => {
     dispatch(addComment({ comment: data, wit }));
     setText("");
     wit.replies.push(data);
-    // setReplies((prev: []) => [...prev, data]);
     setWit({ ...wit });
   };
-  // console.log("??", replies);
+
+  const handleReplyLike = (
+    reply: Reply,
+    liked: boolean,
+    setLikes: Function
+  ) => {
+    if (!liked) {
+      dispatch(likeReply(reply));
+      // console.log(data);
+    } else {
+      dispatch(unlikeReply(reply));
+    }
+  };
 
   if (!wit) {
     return null;
@@ -131,9 +142,9 @@ const SelectedWit = () => {
               <ListWits
                 reply={comment}
                 key={`reply-${comment.id}`}
-                liked={replyLikes.has(Number(comment.id))}
+                liked={replyLikez.has(Number(comment.id))}
                 //@ts-ignore
-                handleLikes={() => {}}
+                handleLikes={handleReplyLike}
               />
             ))}
         </div>

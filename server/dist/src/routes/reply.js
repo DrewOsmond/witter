@@ -11,5 +11,11 @@ const router = (0, express_1.Router)();
 router.post("/create", auth_1.authenticateUser, (0, express_async_handler_1.default)(async (req, res) => {
     (0, reply_1.createReply)(req, res);
 }));
+router.post("/like", auth_1.authenticateUser, (0, express_async_handler_1.default)(async (req, res) => {
+    (0, reply_1.likeReply)(req, res);
+}));
+router.delete("/unlike", auth_1.authenticateUser, (0, express_async_handler_1.default)(async (req, res) => {
+    (0, reply_1.unlikeReply)(req, res);
+}));
 exports.default = router;
 //# sourceMappingURL=reply.js.map

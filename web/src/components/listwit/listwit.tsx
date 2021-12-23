@@ -68,9 +68,7 @@ const ListWits: FC<Props> = ({ wit, liked, handleLikes, reply }) => {
         <div className="wit__likes">
           <i
             className={liked ? "fas fa-heart" : "far fa-heart"}
-            onClick={() =>
-              handleLikes(wit, liked, setLikes, wit ? "wit" : "reply")
-            }
+            onClick={() => handleLikes(wit ? wit : reply, liked, setLikes)}
           ></i>
           <div className="wit__likes__length">
             {likes && likes.length > 0 ? likes.length : ""}

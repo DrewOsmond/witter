@@ -61,7 +61,7 @@ const likeWit = async (req, res) => {
 exports.likeWit = likeWit;
 const unlikeWit = async (req, res) => {
     if (!req.body.witId) {
-        return res.sendStatus(500);
+        return res.sendStatus(400);
     }
     const { user } = req.body.user;
     const { witId } = req.body;

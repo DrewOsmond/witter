@@ -12,6 +12,7 @@ export interface UserSession {
   user?: User | null;
   status: string | null;
   likes: Number[];
+  replyLikes: Number[];
 }
 
 export type WitLike = {

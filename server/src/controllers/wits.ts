@@ -61,7 +61,7 @@ export const likeWit = async (req: Request, res: Response) => {
 
 export const unlikeWit = async (req: Request, res: Response) => {
   if (!req.body.witId) {
-    return res.sendStatus(500);
+    return res.sendStatus(400);
   }
 
   const { user } = req.body.user;

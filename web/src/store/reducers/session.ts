@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { WitLike, UserSession, Wit } from "../../types";
+import { WitLike, UserSession, Wit, Reply, ReplyLike } from "../../types";
 
 export const registerUser = createAsyncThunk(
   "session/register",
@@ -39,13 +39,35 @@ export const likeWit = createAsyncThunk("session/like", async (wit) => {
 export const unlikeWit = createAsyncThunk(
   "session/unlike",
   async (wit: Wit) => {
-    const { data } = await axios.delete("/api/wit/unlike", {
+    await axios.delete("/api/wit/unlike", {
       data: { witId: wit.id },
     });
-    if (data) {
-      return wit.id;
-    }
-    return undefined;
+
+    return wit.id;
+  }
+);
+
+export const likeReply = createAsyncThunk(
+  "session/likeReply",
+  async (reply: Reply) => {
+    await axios.post("/api/reply/like", {
+      reply,
+    });
+
+    return reply.id;
+  }
+);
+
+export const unlikeReply = createAsyncThunk(
+  "session/unlikeReply",
+  async (reply: Reply) => {
+    await axios.delete("/api/reply/unlike", {
+      data: {
+        reply,
+      },
+    });
+
+    return reply.id;
   }
 );
 
@@ -55,6 +77,7 @@ const sessionSlice = createSlice({
     user: null,
     status: null,
     likes: [],
+    replyLikes: [],
   } as UserSession,
   reducers: {},
   extraReducers: (builder) => {
@@ -63,6 +86,16 @@ const sessionSlice = createSlice({
 
       for (let like of likes) {
         likeIds.push(like.witId);
+      }
+
+      return likeIds;
+    };
+
+    const getReplyLikeIds = (likes: ReplyLike[]) => {
+      const likeIds: Number[] = [];
+
+      for (let like of likes) {
+        likeIds.push(like.replyId);
       }
 
       return likeIds;
@@ -82,6 +115,7 @@ const sessionSlice = createSlice({
       state.status = "success";
       state.user = action.payload;
       state.likes = getLikeIds(action.payload.witLikes);
+      state.replyLikes = getReplyLikeIds(action.payload.replyLikes);
     });
 
     builder.addCase(loginUser.rejected, (state, action) => {
@@ -93,6 +127,7 @@ const sessionSlice = createSlice({
       state.status = "success";
       state.user = action.payload;
       state.likes = getLikeIds(action.payload.witLikes);
+      state.replyLikes = getReplyLikeIds(action.payload.replyLikes);
     });
 
     builder.addCase(restoreUser.rejected, (state, _action) => {
@@ -104,6 +139,7 @@ const sessionSlice = createSlice({
       state.status = "success";
       state.user = null;
       state.likes = [];
+      state.replyLikes = [];
     });
 
     builder.addCase(logoutUser.rejected, (state, _action) => {
@@ -116,10 +152,17 @@ const sessionSlice = createSlice({
 
     builder.addCase(unlikeWit.fulfilled, (state, action) => {
       const id = action.payload;
-      state.likes = state.likes.filter((e) => {
-        // console.log(e, id);
-        return e !== id;
-      });
+      state.likes = state.likes.filter((e) => e !== id);
+    });
+
+    builder.addCase(likeReply.fulfilled, (state, action) => {
+      const id = action.payload;
+      state.replyLikes.push(id);
+    });
+
+    builder.addCase(unlikeReply.fulfilled, (state, action) => {
+      const id = action.payload;
+      state.replyLikes = state.replyLikes.filter((e) => e !== id);
     });
   },
 });

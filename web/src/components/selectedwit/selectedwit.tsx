@@ -4,7 +4,7 @@ import { likeReply, unlikeReply } from "../../store/reducers/session";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Reply, WitReply } from "../../types";
+import { Reply, ReplyLike, WitReply } from "../../types";
 import axios from "axios";
 
 import ListWits from "../listwit/listwit";
@@ -65,9 +65,15 @@ const SelectedWit = () => {
   ) => {
     if (!liked) {
       dispatch(likeReply(reply));
-      // console.log(data);
+      setLikes((prev: []) => [
+        ...prev,
+        { replyId: reply.id, userId: user?.id },
+      ]);
     } else {
       dispatch(unlikeReply(reply));
+      setLikes((prev: ReplyLike[]) =>
+        prev.filter((lyk) => lyk.userId !== user?.id)
+      );
     }
   };
 

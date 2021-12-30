@@ -6,8 +6,8 @@
   "scripts": {
     "build": "npm run build-web && npm run build-server",
     "build-web": "cd ./web npm install --only=dev && npm install && npm run build",
-    "build-server": "cd ./server npm install && npm run postinstall && npm run prisma && npm start",
-    "prisma": "npx prisma migrate deploy",
+    "build-server": "cd ./server npm install --only=dev && npm install && npm run prisma && npm run postinstall && npm start",
+    "prisma": "npx prisma migrate",
     "postinstall": "cd ./server tsc",
     "start": "cd ./server/dist node index.js"
   },

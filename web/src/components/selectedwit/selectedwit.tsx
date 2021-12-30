@@ -21,7 +21,7 @@ const SelectedWit = () => {
   );
 
   const [replyLikez, setReplyLikez] = useState(new Set(replyLikes));
-  console.log(replyLikes);
+
   useEffect(() => {
     if (!wit) {
       (async () => {

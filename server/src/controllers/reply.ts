@@ -27,6 +27,7 @@ export const createReply = async (req: Request, res: Response) => {
             picture: true,
           },
         },
+        likes: true,
       },
     });
     res.status(201).json(newReply);

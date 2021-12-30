@@ -6,9 +6,9 @@ import replyRouter from "./reply";
 
 const router = Router();
 
-router.use("/session", userRouter);
-router.use("/wit", witRouter);
-router.use("/reply", replyRouter);
+router.use("/api/session", userRouter);
+router.use("/api/wit", witRouter);
+router.use("/api/reply", replyRouter);
 
 if (process.env.NODE_ENV === "production") {
   const sendStatic = (req: Request, res: Response) => {

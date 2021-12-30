@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
 
-app.use("/api", apiRouter);
+app.use("/", apiRouter);
 
 const PORT = process.env.PORT || 4001;
 
